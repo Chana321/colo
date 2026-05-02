@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LAND PRIME — บ้าน&ที่ดินสวย ByOnkanok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #0a0a0a;
+      --ink-mid:   #1a1a1a;
+      --ink-soft:  #3a3a3a;
+      --dust:      #6b6b6b;
+      --silver:    #a0a0a0;
+      --mist:      #d0d0d0;
+      --fog:       #efefef;
+      --snow:      #f7f7f7;
+      --white:     #ffffff;
+
+      --blue:      #1a4fd6;
+      --blue-dark: #0f2f8a;
+      --blue-mid:  #2d6be4;
+      --blue-light:#e8f0fe;
+
+      --border:      #e2e2e2;
+      --border-dark: #2a2a2a;
+      --nav-height:  62px;
+
+      --green-light: #EAF3DE;
+      --green-dark:  #3B6D11;
+      --yellow-light:#FEF9C3;
+      --yellow-dark: #854D0E;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================ NAVBAR */
+    .navbar {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: var(--nav-height);
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-dark);
+      z-index: 1000; display: flex; align-items: center;
+    }
+    .nav-container {
+      width: 100%; max-width: 1200px;
+      margin: 0 auto; padding: 0 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .logo-img  { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #c0c0c0; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.15; }
+    .logo-top    { font-size: 13px; font-weight: 400; color: black; letter-spacing: .04em; }
+    .logo-bottom { font-size: 16px; font-weight: 600; color: var(--blue); }
+
+    .nav-menu { display: flex; gap: 2px; list-style: none; align-items: center; }
+    .nav-menu a {
+      text-decoration: none; color: black;
+      font-size: 13.5px; font-weight: 300;
+      padding: 6px 14px; border-radius: 6px;
+      transition: all .2s;
+    }
+    .nav-menu a.active { color: var(--white); font-weight: 500; }
+    .nav-menu a:hover:not(.active) { color: var(--white); background: rgba(255,255,255,.07); }
+
+    .nav-toggle {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 10px; z-index: 1002;
+      outline: none; -webkit-tap-highlight-color: transparent;
+    }
+    .hamburger-icon {
+      width: 22px; height: 15px;
+      display: flex; flex-direction: column;
+      justify-content: space-between; align-items: flex-end;
+    }
+    .hamburger-icon span {
+      display: block; height: 2px; background: #3b3b3b;
+      border-radius: 2px; transition: all .3s cubic-bezier(.645,.045,.355,1);
+    }
+    .hamburger-icon span:nth-child(1) { width: 100%; }
+    .hamburger-icon span:nth-child(2) { width: 16px; }
+    .hamburger-icon span:nth-child(3) { width: 100%; }
+    .nav-toggle.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-exit-section { display: none; list-style: none; width: 100%; }
+
+    /* ============================================================ HERO CAROUSEL */
+    .hero-carousel {
+      position: relative; width: 100%;
+      height: 25vh; min-height: 400px;
+      overflow: hidden; background: var(--ink);
+      margin-top: var(--nav-height);
+    }
+    .hero-track {
+      display: flex; height: 100%;
+      transition: transform 0.85s cubic-bezier(0.77,0,0.175,1);
+    }
+    .hero-slide {  flex: 0 0 20%;  height: 100%; position: relative; overflow: hidden; }
+    .hero-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transform: scale(1.06);
+      transition: transform 6.5s ease;
+    }
+    
+    .hero-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.04) 30%,
+        rgba(0,0,0,0.72) 100%
+      );
+    }
+
+    /* caption */
+     .hero-caption {
+      position: absolute; 
+      bottom: 5px; left: 5px; right: 5px;
+      z-index: 3; padding: 15px;
+      background: rgba(0, 0, 0, 0.6); /* ใส่พื้นหลังดำจางๆ กันตัวอักษรกลืนกับภาพ */
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-caption-type {
+      display: inline-block;
+      font-size: 11px; font-weight: 600; letter-spacing: .13em;
+      text-transform: uppercase;
+      background: var(--blue); color: #fff;
+      padding: 4px 12px; border-radius: 5px; margin-bottom: 14px;
+    }
+     .hero-caption-title {
+      font-size: 16px; /* ลดขนาดชื่อ */
+      font-weight: 600; color: #fff;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* ตัดคำถ้าชื่อยาวไป */
+    }
+    .hero-caption-loc {
+      font-size: 14px; color: rgba(255,255,255,.7);
+      display: flex; align-items: center; gap: 5px; margin-bottom: 12px;
+    }
+    .hero-caption-loc svg { width: 13px; height: 13px; }
+    .hero-caption-price {
+      font-size: 22px; font-weight: 400; color: #fff;
+    }
+    .hero-caption-price span { font-size: 13px; font-weight: 300; opacity: .7; margin-left: 5px; }
+
+    /* arrows */
+    .hero-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.18);
+      color: #fff; width: 50px; height: 50px; border-radius: 50%;
+      cursor: pointer; font-size: 22px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, transform .2s;
+    }
+    .hero-arrow:hover { background: var(--blue); transform: translateY(-50%) scale(1.08); border-color: var(--blue); }
+    .hero-arrow-prev { left: 24px; }
+    .hero-arrow-next { right: 24px; }
+
+    /* dots */
+    .hero-dots {
+      position: absolute; bottom: 56px; right: 56px;
+      z-index: 10; display: flex; gap: 8px; align-items: center;
+    }
+    .hero-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.35); cursor: pointer;
+      transition: all .3s; border: none; padding: 0;
+    }
+    .hero-dot.active { background: var(--blue); transform: scale(1.3); }
+
+    /* counter */
+  
+
+    /* progress bar */
+    .hero-progress {
+      position: absolute; bottom: 0; left: 0;
+      height: 3px; background: var(--blue);
+      z-index: 10; width: 0%;
+    }
+
+   
+
+
+    /* ============================================================ INTRO STRIP */
+    .intro-strip {
+      background: var(--ink-mid);
+      padding: 16px 28px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 36px; flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .intro-item {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13px; color: var(--silver);
+    }
+    .intro-item strong { color: var(--white); font-weight: 500; }
+    .intro-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+
+    /* ============================================================ PAGE */
+    .page { max-width: 1200px; margin: 0 auto; padding: 0 28px 80px; }
+
+    /* ============================================================ SECTION HEAD */
+    .section-head {
+      padding: 52px 0 28px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+    .section-eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--blue);
+      display: block; margin-bottom: 6px;
+    }
+    .section-title { font-size: clamp(20px, 2.5vw, 26px); font-weight: 400; color: var(--ink); line-height: 1.2; }
+    .section-count { font-size: 13px; color: var(--dust); margin-top: 4px; }
+
+    /* ============================================================ FILTERS */
+    .filters-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .chip {
+      font-family: 'Prompt', sans-serif;
+      font-size: 13px; padding: 8px 20px;
+      border-radius: 8px; border: 1.5px solid var(--border);
+      background: var(--white); color: var(--dust);
+      cursor: pointer; transition: all .2s;
+      flex: 0 0 calc(50% - 4px); text-align: center; white-space: nowrap;
+    }
+    .chip:hover { border-color: var(--blue); color: var(--blue); }
+    .chip.active { background: var(--blue); color: var(--white);  box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+    @media (min-width: 640px) { .chip { flex: 0 0 auto; } }
+
+    /* ============================================================ SORT */
+    .controls-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .sec-label { font-size: 13px; color: var(--dust); }
+    .sort-select {
+      font-family: 'Prompt', sans-serif;
+      font-size: 13px; padding: 7px 14px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      background: var(--white); color: var(--ink);
+      cursor: pointer; outline: none; transition: border-color .2s;
+    }
+    .sort-select:focus { border-color: var(--blue); }
+    .mobile-sort-btn {
+      display: none; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 8px;
+      border: 1.5px solid var(--border);
+      color: var(--ink); font-family: 'Prompt', sans-serif;
+      font-size: 13px; cursor: pointer; position: relative;
+      -webkit-tap-highlight-color: transparent; background: var(--white);
+    }
+    .mobile-sort-btn svg { width: 15px; height: 15px; }
+
+    /* ============================================================ GRID */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+
+    .card {
+      background: var(--white); border-radius: 14px; overflow: hidden;
+      cursor: pointer; opacity: 0;
+      transition: opacity .35s ease, box-shadow .3s ease, transform .25s ease;
+      border: 1.5px solid var(--border);
+    }
+    .card.visible { opacity: 1; }
+    .card:hover { box-shadow: 0 14px 40px rgba(0,0,0,.11); transform: translateY(-3px); }
+
+    .card-img { position: relative; height: 190px; overflow: hidden; background: var(--fog); }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s ease; }
+    .card:hover .card-img img { transform: scale(1.05); }
+
+    .card-tag { position: absolute; top: 11px; left: 11px; font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 6px; }
+    .tag-house      { background: var(--blue-light); color: var(--blue); }
+    .tag-landhouse  { background: var(--green-light); color: var(--green-dark); }
+    .tag-large-land { background: var(--yellow-light); color: var(--yellow-dark); }
+
+    .card-body { padding: 16px 18px 18px; }
+    .card-loc  { font-size: 11px; color: var(--silver); margin-bottom: 5px; display: flex; align-items: center; gap: 4px; }
+    .card-loc svg { width: 11px; height: 11px; flex-shrink: 0; }
+    .card-name { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+    .card-desc { font-size: 12px; color: var(--dust); margin-bottom: 14px; line-height: 1.55; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; width: 100%; }
+    .card-foot { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+    .card-price { font-size: 17px; font-weight: 600; color: var(--blue); }
+    .card-price small { font-size: 11px; font-weight: 400; color: var(--silver); margin-left: 3px; }
+    .card-area { font-size: 12px; color: var(--dust); }
+
+    .card-btn {
+      display: block; width: 100%; padding: 10px;
+      text-align: center; border-radius: 9px;
+      border: 1.5px solid var(--border);
+      font-family: 'Prompt', sans-serif; font-size: 13px; color: var(--dust);
+      cursor: pointer; background: none;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .card-btn:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+    .empty { grid-column: 1/-1; text-align: center; padding: 80px 24px; color: var(--dust); }
+
+    /* ============================================================ FOOTER */
+    footer {
+      margin-top: 80px;
+      background: var(--ink-mid);
+      color: var(--white);
+      padding: 52px 28px 32px;
+      border-top: 3px solid var(--blue);
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+    .footer-brand { display: flex; align-items: center; gap: 14px; }
+    .footer-logo  { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #333; }
+    .footer-name  { font-size: 16px; font-weight: 600; color: var(--white); }
+    .footer-sub   { font-size: 12px; color: var(--silver); }
+    .footer-desc  { font-size: 13px; color: var(--silver); line-height: 1.9; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: var(--mist); text-decoration: none; font-size: 14px; transition: color .2s; padding: 4px 0; border-bottom: 1px solid transparent; }
+    .footer-links a:hover { color: var(--white); border-bottom-color: var(--blue); }
+    .footer-copy { font-size: 12px; color: var(--dust); padding-top: 16px; border-top: 1px solid #2a2a2a; width: 100%; }
+
+    /* ============================================================ MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: none; align-items: center; justify-content: center;
+      z-index: 9999; padding: 16px; touch-action: none;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white); width: 100%; max-width: 660px;
+      border-radius: 18px 18px 12px 12px;
+      overflow: hidden; max-height: 92vh;
+      display: flex; flex-direction: column;
+      animation: popIn .3s cubic-bezier(.22,.68,0,1.2);
+    }
+    @keyframes popIn { from { transform: scale(0.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .modal-gallery { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; flex-shrink: 0; }
+    .gal-track { display: flex; height: 100%; transition: transform 0.7s cubic-bezier(.22,1,.36,1); }
+    .gal-slide { flex: 0 0 100%; height: 100%; }
+    .gal-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .gal-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,.85); border: none; cursor: pointer;
+      width: 38px; height: 38px; border-radius: 50%;
+      font-size: 20px; display: flex; align-items: center; justify-content: center;
+      transition: background .15s; color: var(--ink); z-index: 2;
+    }
+    .gal-prev { left: 12px; } .gal-next { right: 12px; }
+    .gal-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+    .gal-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.45); cursor: pointer; transition: background .2s; border: none; padding: 0; }
+    .gal-dot.active { background: var(--blue); }
+
+    .modal-close {
+      position: absolute; top: 12px; right: 12px;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,.88); border: none;
+      cursor: pointer; font-size: 17px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink); z-index: 10; transition: background .15s;
+    }
+    .modal-close:hover { background: var(--white); }
+
+    .modal-body { padding: 22px 24px 10px; overflow-y: auto; flex: 1; overscroll-behavior: contain; }
+    .modal-tag-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+    .modal-tag { font-size: 10.5px; font-weight: 600; padding: 3px 10px; border-radius: 6px; }
+    .modal-title { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.3; }
+    .modal-loc { font-size: 14px; color: var(--dust); display: flex; align-items: center; gap: 5px; margin-bottom: 16px; }
+    .modal-loc svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1.5px solid var(--fog); }
+    .detail-item { background: var(--snow); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; display: flex; flex-direction: column; }
+    .detail-label { font-size: 11px; color: var(--silver); margin-bottom: 2px; }
+    .detail-value { font-size: 16px; font-weight: 700; color: var(--ink); }
+    .detail-price .detail-value { color: var(--blue); }
+
+    .modal-section-label { font-size: 10.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--silver); margin-bottom: 10px; }
+    .modal-desc-text { font-size: 14px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 24px; white-space: pre-line; }
+
+    .modal-cta { display: flex; flex-direction: column; gap: 10px; padding: 16px 24px 20px; background: var(--snow); border-top: 1.5px solid var(--border); }
+    .btn-cta { height: 46px; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; font-family: 'Prompt', sans-serif; font-size: 14px; border: none; cursor: pointer; transition: transform .1s, opacity .2s; }
+    .btn-cta .cta-icon-img { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
+    .btn-cta:active { transform: scale(0.98); }
+    .btn-fb  { background: var(--blue); color: white !important; }
+    .btn-map { background: var(--ink); color: white !important; }
+
+    @media (min-width: 600px) { .modal-cta { flex-direction: row; } .btn-fb, .btn-map { flex: 1; } }
+
+    /* ============================================================ FAB */
+    .fab-wrapper { position: fixed; bottom: 28px; right: 28px; z-index: 9999; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .fab-options { display: flex; flex-direction: column; gap: 10px; visibility: hidden; opacity: 0; transform: translateY(30px) scale(0.7); transition: all .3s cubic-bezier(0.175,0.885,0.32,1.275); }
+    .fab-options.show { visibility: visible; opacity: 1; transform: translateY(0) scale(1); }
+    .fab-main { width: 54px; height: 54px; border-radius: 50%; background: var(--white); border: none; box-shadow: 0 6px 20px rgba(0,0,0,.18); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .3s; z-index: 2; padding: 0; overflow: hidden; outline: none; -webkit-tap-highlight-color: transparent; }
+    .fab-main img { width: 38px; height: 38px; object-fit: contain; }
+    .fab-main.active { transform: scale(1.1); background: var(--fog); }
+    .fab-mini { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.15); transition: transform .2s; }
+    .fab-mini:hover { transform: scale(1.1); }
+    .fab-mini.line { background: #00b900; }
+    .fab-mini.tel  { background: var(--blue); }
+    .fab-mini.fb   { background: #1877f2; }
+
+    /* ============================================================ SCROLL TOP */
+    .scroll-top { position: fixed; bottom: 28px; left: 28px; width: 42px; height: 42px; border-radius: 10px; background: var(--ink-mid); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .3s, visibility .3s, transform .3s; z-index: 9998; -webkit-tap-highlight-color: transparent; }
+    .scroll-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    .scroll-top svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.5; }
+
+    /* ============================================================ RESPONSIVE */
+    @media (max-width: 768px) {
+       .hero-slide {  flex: 0 0 100%;  height: 100%; position: relative; overflow: hidden; }
+    .hero-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transform: scale(1.06);
+      transition: transform 6.5s ease;
+    }
+      .hero-carousel { height: 25vh; min-height: 300px; }
+      .hero-caption { padding: 28px 22px; }
+      .hero-caption-title { font-size: 20px; }
+      .hero-dots { bottom: 32px; right: 22px; }
+      .scroll-hint { display: none; }
+      .hero-arrow { width: 38px; height: 38px; font-size: 18px; }
+      .hero-arrow-prev { left: 12px; } .hero-arrow-next { right: 12px; }
+      .nav-container { padding: 0 18px; }
+      .nav-toggle { display: block; }
+      .nav-menu {
+        position: fixed; top: 0; right: 0; width: 220px; height: 100vh;
+        background: var(--ink-mid);
+        flex-direction: column; padding: 0; gap: 0;
+        transform: translateX(110%);
+        transition: transform .3s cubic-bezier(.4,0,.2,1);
+        z-index: 1001; border-left: 1px solid var(--border-dark);
+      }
+      .nav-menu.active { transform: translateX(0); }
+      .nav-menu li { width: 100%; }
+      .mobile-exit-section { display: block; }
+      .btn-exit { width: 100%; height: 58px; background: var(--ink); border: none; display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Prompt', sans-serif; font-size: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; border-bottom: 1px solid var(--border-dark); }
+      .nav-menu a { display: flex; align-items: center; justify-content: center; padding: 15px 0; font-size: 15px; color: var(--silver); border-radius: 0; border-bottom: 1px solid var(--border-dark); width: 100%; }
+      .nav-menu a.active { color: var(--white); background: rgba(26,79,214,.1); }
+      .section-head { padding: 36px 0 22px; }
+      .desktop-only { display: none !important; }
+      .mobile-sort-btn { display: flex; }
+      .modal-box { height: 85dvh; border-radius: 18px 18px 14px 14px; }
+      .gal-btn { width: 33px !important; height: 33px !important; font-size: 16px !important; }
+      .fab-wrapper { bottom: 20px; right: 20px; }
+      .scroll-top { bottom: 20px; left: 20px; }
+    }
+    @media (max-width: 360px) { .detail-value { font-size: 14px; } .detail-price .detail-value { font-size: 15px; } }
+
+    .nav-toggle, .btn-exit, .nav-menu a, .chip, .btn-cta, .card-btn, .fab-main, .fab-mini, .gal-btn, .modal-close, .hero-arrow {
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <img src="img/other/logo3.png" alt="Logo" class="logo-img">
+        <div class="logo-text">
+          <div class="logo-top">บ้าน&ที่ดินสวย</div>
+          <div class="logo-bottom">ByOnkanok</div>
+        </div>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li class="mobile-exit-section">
+          <button class="btn-exit" onclick="closeMenu()"></button>
+        </li>
+        <li><a href="#" class="active" onclick="render('all')">หน้าแรก</a></li>
+        <li><a href="#listings">รายการที่ดิน</a></li>
+        <li><a href="sell.html">ขอบคุณลูกค้า</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61585932872107" target="_blank">ติดตามเรา</a></li>
+        <li><a href="tel:0882692553">โทรสอบถาม</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <div class="hamburger-icon"><span></span><span></span><span></span></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="detailModal" onclick="overlayClick(event)">
+    <div class="modal-box">
+      <div class="modal-gallery">
+        <button class="modal-close" onclick="closeDetail()">✕</button>
+        <div class="gal-track" id="galTrack"></div>
+        <button class="gal-btn gal-prev" onclick="galMove(-1)">‹</button>
+        <button class="gal-btn gal-next" onclick="galMove(1)">›</button>
+        <div class="gal-dots" id="galDots"></div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tag-row"><span class="modal-tag" id="modalTag"></span></div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-loc" id="modalLoc"></div>
+        <div class="detail-grid">
+          <div class="detail-item detail-price"><div class="detail-label">ราคา</div><div class="detail-value" id="modalPrice"></div></div>
+          <div class="detail-item"><div class="detail-label">เนื้อที่</div><div class="detail-value" id="modalArea"></div></div>
+        </div>
+        <div class="modal-section-label">รายละเอียด</div>
+        <div class="modal-desc-text" id="modalDesc"></div>
+      </div>
+      <div class="modal-cta">
+        <a href="#" target="_blank" id="btnFB" class="btn-cta btn-fb">
+          <img src="img/other/face-icon.png" alt="Facebook" class="cta-icon-img">
+          <span>ดูรายละเอียดบน Facebook</span>
+        </a>
+        <a href="#" target="_blank" id="btnMap" class="btn-cta btn-map">
+          <img src="img/other/maps-icon.png" alt="Google Maps" class="cta-icon-img">
+          <span>เปิดแผนที่ Google Maps</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HERO CAROUSEL -->
+    <div class="hero-carousel" id="heroCarousel">
+      <div class="hero-track" id="heroTrack"></div>
+      <button class="hero-arrow hero-arrow-prev" onclick="heroMove(-1)">‹</button>
+      <button class="hero-arrow hero-arrow-next" onclick="heroMove(1)">›</button>
+      <div class="hero-counter" id="heroCounter">01 / 10</div>
+      <div class="hero-dots" id="heroDots"></div>
+      <div class="hero-progress" id="heroProgress"></div>
+    </div>
+
+    <!-- INTRO STRIP -->
+    <div class="intro-strip">
+      <div class="intro-item"><div class="intro-dot"></div><span>ที่ดินสวย & บ้านราคาดี <strong>จังหวัดลำปาง</strong></span></div>
+      <div class="intro-item"><div class="intro-dot"></div><span>ติดต่อ <strong>088-269-2553</strong></span></div>
+      <div class="intro-item"><div class="intro-dot"></div><span>ยินดีให้คำปรึกษา <strong>ฟรี</strong></span></div>
+    </div>
+
+    <div class="page">
+
+      <!-- Section head -->
+      <div id="listings" class="section-head">
+        <div>
+          <span class="section-eyebrow">Properties</span>
+          <div class="section-title">รายการทรัพย์สิน</div>
+          <div class="section-count" id="secLabel">ทั้งหมด 0 รายการ</div>
+        </div>
+        <select class="sort-select desktop-only" id="sortSelect" onchange="applySort()">
+          <option value="default">ราคาค่าเริ่มต้น</option>
+          <option value="price-asc">ราคาต่ำ ⇀ สูง</option>
+          <option value="price-desc">ราคาสูง ⇀ ต่ำ</option>
+        </select>
+        <div class="mobile-sort-btn" style="position:relative;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="4" x2="7" y2="20"/><polyline points="3 8 7 4 11 8"/>
+            <line x1="17" y1="4" x2="17" y2="20"/><polyline points="13 16 17 20 21 16"/>
+          </svg>
+          <span>เรียง</span>
+          <select onchange="syncAndSort(this)" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;">
+            <option value="default">ค่าเริ่มต้น</option>
+            <option value="price-asc">ราคาต่ำ ⇀ สูง</option>
+            <option value="price-desc">ราคาสูง ⇀ ต่ำ</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-bar">
+        <button class="chip active" data-f="all">ทั้งหมด</button>
+        <button class="chip" data-f="house">บ้าน/ตึกคูหา</button>
+        <button class="chip" data-f="landhouse">ที่ดินเหมาะปลูกบ้าน</button>
+        <button class="chip" data-f="large-land">ที่แปลงใหญ่</button>
+      </div>
+
+      <div class="grid" id="grid"></div>
+
+      <!-- FAB -->
+      <div class="fab-wrapper">
+        <div class="fab-options" id="fabOptions">
+          <a href="https://www.facebook.com/profile.php?id=61585932872107" target="_blank" class="fab-mini fb">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://line.me/ti/p/~YOUR_ID" target="_blank" class="fab-mini line">
+            <svg viewBox="0 0 40 40" width="20" height="20" fill="white"><path d="M20 2C10.06 2 2 9.16 2 17.96c0 5.87 3.7 11.01 9.27 13.93-.4 1.5-1.47 5.43-1.68 6.27-.26 1.02.37 1.01.78.74.32-.21 5.1-3.46 7.17-4.87.73.1 1.48.15 2.24.15 9.94 0 18-7.16 18-15.96C38 9.16 29.94 2 20 2z"/></svg>
+          </a>
+          <a href="tel:0882692553" class="fab-mini tel">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.81 12.81 0 0 0 .62 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.81 12.81 0 0 0 2.81.62A2 2 0 0 1 22 18.92z"/></svg>
+          </a>
+        </div>
+        <button class="fab-main" id="fabMain" onclick="toggleFAB()">
+          <img src="img/other/call2.png" alt="Call">
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="img/other/logo3.png" alt="Logo" class="footer-logo">
+        <div><div class="footer-name">บ้าน&ที่ดินสวย</div><div class="footer-sub">ByOnkanok</div></div>
+      </div>
+      <p class="footer-desc">รวมที่ดินสวย & บ้าน ราคาดีที่สุดในพื้นที่ลำปาง<br>ติดต่อเราได้ทุกช่องทาง ยินดีให้คำปรึกษาฟรี</p>
+      <div class="footer-links">
+        <a href="tel:0882692553">Tel 088-269-2553</a>
+        <a href="https://www.facebook.com/profile.php?id=61585932872107" target="_blank">Facebook Page</a>
+      </div>
+      <div class="footer-copy">© 2026 ByOnkanok · All rights reserved</div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script>
+    const DATA = [
+      { title:'ติดถนนเส้น แม่ทะ-บ้านกล้วย', img:'img/44.webp', map:'https://maps.app.goo.gl/fDf4KGpGXNbWGr36A', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'ต.กล้วยแพะ อ.เมือง ลำปาง', priceNum:290000, price:'290,000', type:'landhouse', area:'74 ตร.ว.', desc:'ที่ดินทำเลดี เนื้อที่ 74 ตร.ว หน้ากว้าง 40 เมตร  ติดถนนสายหลักแม่ทะ–บ้านกล้วย เดินทางสะดวกรถสัญจรผ่านตลอด \n\n- ลงตัวทั้งปลูกบ้าน/ทำธุรกิจ หรือเก็งกำไรในอนาคต \n - ราคาเพียง 290,000 บาท (ราคานี้รวมโอน) ', gallery:['img/1/3.webp','img/1/1.webp','img/1/2.webp'] },
+      { title:'หมู่บ้านเด่นสโรชา', img:'img/88.webp', map:'https://maps.app.goo.gl/v6auFGytfLS6wrFo6', fbPost:'https://www.facebook.com/share/p/1CdLrD8f8Q/', loc:'ต.พิชัย อ.เมือง ลำปาง', priceNum:450000, price:'450,000', type:'landhouse', area:'99 ตร.ว.', desc:'ที่ดินราคาดี (อยู่ในหมู่บ้านเด่นสโรชา) เนื้อที่ 99 ตร.ว บรรยากาศเงียบสงบเหมาะสำหรับปลูกบ้านอยู่อาศัย \n\n- หน้ากว้าง 20 เมตร ลึก 19 เมตร \n- น้ำประปา/ไฟฟ้า/ถนนลาดยางครบ \n- เดินทางเข้าออกสะดวกเข้าตัวเมืองแค่ 7 นาที', gallery:['img/2/1.webp','img/2/2.webp'] },
+      { title:'ตรงข้ามบ้านต้นมื่น', img:'img/10.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/r/1KHfHwnh14/', loc:'ต.พิชัย อ.เมือง ลำปาง', priceNum:450000, price:'450,000', type:'landhouse', area:'84 ตร.ว.', desc:'ที่ดินแปลงสวยถมแล้วพร้อมปลูกบ้าน เนื้อที่ 84 ตร.ว เดินทางเข้าออก-สะดวก เข้าตัวเมืองไม่เกิน 7 นาที  \n\n- ที่ดินมุมหัวติดถนนคอนกรีต 2 ด้าน\n- หน้ากว้าง 23 เมตร ลึก 20 เมตร   \n- บรรยากาศเงียบสงบ \n- วิวภูเขาเต็มตา ', gallery:['img/10.png','img/3/1.webp'] },
+      { title:'พรประสิทธิ์ซอย 4', img:'img/11.webp', map:'https://maps.app.goo.gl/kmFYBmS5oXuTw88Q9', fbPost:'https://www.facebook.com/share/p/18E711mM6s/', loc:'ต.ต้นธงชัย อ.เมือง ลำปาง', priceNum:890000, price:'890,000', type:'landhouse', area:'107 ตร.ว.', desc:'ที่ดินถมแล้วเนื้อที่ 107 ตร.ว หมู่บ้านพรประสิทธิ์ ซอย4  ทำเลน่าอยู่ เงียบสงบ เดินทางสะดวกใกล้ตัวเมืองมาก \n\n-  เหมาะสร้างบ้านหรือเก็บลงทุนระยะยาว \n- ราคา 890,000 บาท (ราคานี้รวมโอนแล้ว)', gallery:['img/4/1.webp','img/4/2.webp'] },
+      { title:'ใกล้บ้านศรีสง่า', img:'img/14.webp', map:'https://maps.app.goo.gl/s1cPxfjVnTSGaHTX6', fbPost:'https://www.facebook.com/share/p/1PKhFC3XpN/', loc:'ต.ต้นธงชัย อ.เมือง ลำปาง', priceNum:450000, price:'450,000', type:'landhouse', area:'100 ตร.ว.', desc:'ที่ดินถมแล้ว 2 แปลงติดกัน ใกล้บ้านศรีสง่า ต.ปงแสงทอง จ.ลำปาง เนื้อที่แปลงละ 100 ตร.ว  \n\n- หน้ากว้าง 16 เมตร ลึก 25 เมตร \n- น้ำประปา/ไฟฟ้า \n- ลงตัวทั้งปลูกบ้าน/ทำธุรกิจ\n- ซื้อ 2 แปลงมีราคาพิเศษ', gallery:['img/5/1.webp','img/5/2.webp'] },
+      { title:'เจน&จอย 2', img:'img/13.webp', map:'https://maps.app.goo.gl/HtCdcrpQBKBStvmJ7?g_st=ac', fbPost:'https://www.facebook.com/share/p/18HKbjrgEE/', loc:'ต.ต้นธงชัย อ.เมือง ลำปาง', priceNum:490000, price:'490,000', type:'landhouse', area:'90 ตร.ว.', desc:'ที่ดินแปลงสวยถมแล้วพร้อมปลูกบ้านเนื้อที่ 90 ตร.ว อยู่ในหมู่บ้าน เจน&จอย2 หน้าบ้านได้วิวทุ่งนาธรรมชาติ\n\n- หน้ากว้าง 20 เมตร ลึก 18 เมตร\n- เดินทางเข้า-ออกสะดวก เข้าตัวเมืองไม่เกิน 10 นาที \n- ราคาเพียง 490,000 บาท (ราคานี้รวมโอน)', gallery:['img/6/1.webp','img/6/2.webp'] },
+      { title:'เจน&จอย 2 (150 ตร.ว.)', img:'img/28.webp', map:'https://maps.app.goo.gl/m9xHDmh63p9sJwRX7', fbPost:'https://www.facebook.com/share/v/1CVUscKT9M/', loc:'ต.ต้นธงชัย อ.เมือง ลำปาง', priceNum:750000, price:'750,000', type:'landhouse', area:'150 ตร.ว.', desc:'ที่ดินราคาดีในโครงการเจน&จอย2 เนื้อที่ 150 ตร.ว', gallery:['img/13/1.webp','img/13/3.webp'] },
+      { title:'บ้านดงสันเงิน', img:'img/12.webp', map:'https://maps.app.goo.gl/G9LUpmBBXeHGqTQw9', fbPost:'https://www.facebook.com/share/p/1CpD1Jmeo7/', loc:'ต.บ่อแฮ้ว อ.เมือง ลำปาง', priceNum:500000, price:'500,000', type:'landhouse', area:'85 ตร.ว.', desc:'ทรัพย์ที่ดินเปล่าแปลงสวยบ้านดงสันเงิน เนื้อที่ 85 ตร.ว เดินทางสะดวกเข้าตัวเมืองไม่ถึง 5 นาที \n\n- บรรยากาศเงียบ เป็นส่วนตัว \n- ใกล้ (โรงเรียนอนุบาล , ปงสนุก  , เคนเน็ต)  \n- ใกล้ (ตลาดน้ำโท้ง) \n- ราคาเพียง 500,000 บาท (ราคานี้รวมโอน)  ', gallery:['img/7/1.webp','img/7/2.webp'] },
+      { title:'บ้านต้าหน้าค่าย', img:'img/27.webp', map:'https://maps.app.goo.gl/m9xHDmh63p9sJwRX7', fbPost:'https://www.facebook.com/share/v/1CVUscKT9M/', loc:'ต.พิชัย อ.เมือง ลำปาง', priceNum:1750000, price:'1,750,000', type:'landhouse', area:'116 ตร.ว.', desc:'ที่สวยใกล้เมือง เนื้อที่ 116 ตร.ว บ้านต้าหน้าค่าย ซอยราษฎร์บูรณะ13 เงียบสงบเป็นส่วนตัวมาก \n\n- มีรั้วล้อมทั้ง 4 ด้าน \n- น้ำประปา/ไฟฟ้า \n- ห่างจากค่ายสุรศักดิ์มนตรี 2.กม \n- ใกล้ รพ.ลำปาง,รพ.ค่ายสุรศักดิ์มนตรี ', gallery:['img/13/1.webp','img/13/3.webp'] },
+      { title:'บ้านสวยสไตล์โมเดิร์น', img:'img/15.webp', map:'https://maps.app.goo.gl/sN5q7SyGFRhkKfT97', fbPost:'https://www.facebook.com/share/p/1CU9hgify5/', loc:'ต.บ่อแฮ้ว อ.เมือง ลำปาง', priceNum:1450000, price:'1,450,000', type:'house', tag:'บ้านรีโนเวท', area:'60 ตร.ว.', desc:'บ้านรีโนเวทพร้อมเข้าอยู่ เนื้อที่ 79 ตร.ว บ้านดงม่อนกระทิง มีพื้นที่ใช้สอยเหลือเฟือ สามารถต่อเติมได้เยอะ \n\n- 3 ห้องนอน 1 ห้องน้ำ 1 ห้องครัว \n- โถงในบ้าน/โถงหน้าบ้าน  \n- แอร์+เครื่องทำน้ำอุ่น \n- จอดรถยนต์ได้ถึง 4 คัน  ', gallery:['img/8/1.webp','img/8/2.webp','img/8/3.webp','img/8/5.webp','img/8/4.webp'] },
+      { title:'บ้านหรูใจกลางเมือง', img:'img/16.webp', map:'https://maps.app.goo.gl/dgC7qFk8yidmzV9u9', fbPost:'https://www.facebook.com/share/p/18FGP8LBSC/', loc:'ต.พระบาท อ.เมือง ลำปาง', priceNum:6500000, price:'6,500,000', type:'house', tag:'บ้านมือสอง', area:'116 ตร.ว.', desc:'บ้าน 2 ชั้น ใจกลางเมืองทำเลดีมาก เนื้อที่ 116 ตร.ว โครงสร้างแข็งแรงวัสดุพรีเมียม ดีไซน์ทันสมัย\n\n- 4 ห้องนอน | 4 ห้องน้ำ  \n- 1 ห้องครัว | 1 ห้องทานข้าว\n- จอดรถยนต์ได้ถึง 5 คัน \n- สวนโกโก้รอบบ้าน บรรยากาศร่มรื่น', gallery:['img/9/1.webp','img/9/2.webp','img/9/3.webp','img/9/4.webp'] },
+      { title:'บ้านสวยสไตล์โมเดิร์น (สร้างได้70%)', img:'img/17.webp', map:'https://maps.app.goo.gl/vnAfmHGcHY4JDSMH8', fbPost:'https://www.facebook.com/share/p/1FEu4LhLaq/', loc:'ต.ต้นธงชัย อ.เมือง ลำปาง', priceNum:1250000, price:'1,250,000', type:'house', tag:'บ้านสร้างใหม่', area:'76 ตร.ว.', desc:'บ้านสวยชั้นเดียวสไตล์โมเดิล สร้างใหม่ได้ 70% กำลังรอเจ้าของคนใหม่ อยู่ในโครงการบ้านอลิน@เจดีย์ซาว \n\n- ห่างจากวัดเจย์ซาวเพียง 250 เมตร \n- 3 ห้องนอน | 2 ห้องน้ำ \n- มีเลขที่บ้านแล้ว \n- หน้าบ้านเป็นทุ่งนา บรรยากาศธรรมชาติสุดๆ', gallery:['img/10/1.webp','img/10/2.webp','img/10/3.webp','img/10/4.webp'] },
+      { title:'บ้านกลางป่าเหมี้ยง', img:'img/18.webp', map:'https://maps.app.goo.gl/kFRnacb1xn9MsNBm8', fbPost:'https://www.facebook.com/share/p/1a8Q5NdzHq/', loc:'ต.แจ้ซ้อน อ.เมืองปาน ลำปาง', priceNum:2500000, price:'2,500,000', type:'house', tag:'บ้านมือสอง', area:'240 ตร.ว.', desc:'บ้านพักตากอากาศ 2 ชั้น กลางบ้านป่าเหมี้ยง ลายล้อมไปด้วยธรรมชาติ อากาศเย็นตลอดทั้งปี \n\n- 3 ห้องนอน | 2 ห้องน้ำ \n- 1 ครัวนอก | 1 พื้นที่เตรียมอาหาร \n- จอดรถในร่มได้ 2 คัน \n- หลังบ้านติดลำธาร น้ำใสไหลเย็นตลอดปี', gallery:['img/11/1.webp','img/11/2.webp','img/11/3.webp','img/11/4.webp'] },
+      { title:'ตึก 2 คูหาแยกเฮือนสายคำ', img:'img/29.webp', map:'https://maps.app.goo.gl/og4arbmztfZJdhv89', fbPost:'https://www.facebook.com/share/p/1CJ9pzwyAY/', loc:'ต.วิเชตนคร อ.แจ้ห่ม ลำปาง', priceNum:2600000, price:'2,600,000/ห้อง', type:'house', tag:'ตึกคูหา', area:'138 ตร.ว.', desc:'ตึก 2 ชั้น 3 คูหา พื้นที่ใช้สอยเหลือเฟือทำเลทองเพื่อธุรกิจ ติดเส้นถนนฉัตรไชย  \n\n- ตึก 2 ชั้น 3 คูหาติดกัน \n- มีดาดฟ้า \n- ติดถนนหลัก คนสัญจรตลอดวัน', gallery:['img/12/1.webp','img/12/2.webp'] },
+      { title:'หลังเซเว่นแจ้ห่ม', img:'img/20.webp', map:'https://maps.app.goo.gl/og4arbmztfZJdhv89', fbPost:'https://www.facebook.com/share/p/1CJ9pzwyAY/', loc:'ต.วิเชตนคร อ.แจ้ห่ม ลำปาง', priceNum:1800000, price:'1,800,000', type:'house', tag:'บ้านมือสอง', area:'66 ตร.ว.', desc:'บ้าน 2 ชั้นพร้อมเข้าอยู่กลางอำเภอเมืองแจ้ห่ม มองจากชั้น 2 เห็นวิวภูเขาธรรมชาติ \n\n- 3 ห้องนอน | 2 ห้องน้ำ \n- ห่างจากเซเว่นแจ้ห่ม 250 เมตร', gallery:['img/12/1.webp','img/12/2.webp'] },
+      { title:'ตึก 3 คูหาทำเลทอง', img:'img/26.webp', map:'https://maps.app.goo.gl/og4arbmztfZJdhv89', fbPost:'https://www.facebook.com/share/p/1CJ9pzwyAY/', loc:'ต.วิเชตนคร อ.แจ้ห่ม ลำปาง', priceNum:19000000, price:'19,000,000', type:'house', tag:'ตึกคูหา', area:'138 ตร.ว.', desc:'ตึก 2 ชั้น 3 คูหา พื้นที่ใช้สอยเหลือเฟือทำเลทองเพื่อธุรกิจ ติดเส้นถนนฉัตรไชย \n\n- มีดาดฟ้า \n- ใกล้สถานีรถไฟ,สถานีขนส่ง', gallery:['img/12/1.webp','img/12/2.webp'] },
+      { title:'ที่นา 21 ไร่', img:'img/21.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/v/1U6gVnZTch/', loc:'อ.เมือง ลำปาง', priceNum:250000, price:'250,000/ไร่', type:'large-land', area:'21 ไร่', desc:'ที่นา 21 ไร่ มองหาที่นาทำโคกหนองนา แปลงนี้ครบ น้ำดี ดินดี บรรยากาศเยี่ยม ไม่ห่างตัวเมือง \n\n- เอกสาร นส.3ก \n- เข้าออกสะดวกมาก' },
+      { title:'พระบาทซอย7', img:'img/32.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.เมือง ลำปาง', priceNum:1250000, price:'1,250,000', type:'large-land', area:'1-2-83 ไร่', desc:'ที่แปลงใหญ่ในตัวเมือง เข้า–ออกสะดวก สิ่งแวดล้อมดี' },
+      { title:'ตรงข้ามหนองกระทิง', img:'img/23.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.เมือง ลำปาง', priceNum:5000000, price:'5,000,000', type:'large-land', area:'5-2-30 ไร่', desc:'ที่แปลงใหญ่ในตัวเมืองเนื้อที่ 5 ไร่ 2 งาน 30 ตร.วา เข้า–ออกสะดวก สิ่งแวดล้อมดี \n\n- หน้ากว้าง 115 เมตร \n- ห่างจากสวนสาธารณะ หนองกระทิง 2.กม' },
+      { title:'โซนพระบาท', img:'img/30.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.เมือง ลำปาง', priceNum:7928000, price:'7,928,000', type:'large-land', area:'2-1-91 ไร่', desc:'ที่แปลงใหญ่ในตัวเมือง เข้า–ออกสะดวก สิ่งแวดล้อมดี พร้อมบ้านหลายหลังและอาคารเดิม' },
+      { title:'บ้านเหล่าบุญเกิด', img:'img/22.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.แจ้ห่ม ลำปาง', priceNum:1800000, price:'1,800,000', type:'large-land', area:'4-2-20 ไร่', desc:'ที่แปลงใหญ่ใกล้เมืองบ้านเหล่าบุญเกิด เนื้อที่ 4 ไร่ 2 งาน 20 ตร.ว \n\n- ห่างจากสนามบินลำปาง 3.3 กม\n- ขาย ตร.ว ละ 4900 บาท' },
+      { title:'ติดถนนคลองชลประทาน', img:'img/99.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.แจ้ห่ม ลำปาง', priceNum:5500000, price:'5,500,000', type:'large-land', area:'2-1-80 ไร่', desc:'ที่ดินสวยวิวสวย ติดคันคลอง เนื้อที่ 2 ไร่ 1 งาน 80 ตร.ว \n\n- ที่ดินถมเรียบร้อย \n- เหมาะเปิดคาเฟ่/ร้านอาหาร/บ้านพัก' },
+      { title:'ใกล้วัดพระธาตุลำปางหลวง', img:'img/25.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.แจ้ห่ม ลำปาง', priceNum:1250000, price:'1,250,000', type:'large-land', area:'2-1-65 ไร่', desc:'ที่ดินทำเลทองบรรยากาศธรรมชาติ มองเห็นเจดีย์วัดพระธาตุลำปางหลวง ขนาด 2 ไร่ 1 งาน 65 ตารางวา  \n\n- ไฟฟ้า/น้ำประปา/ถนน \n- ทางเข้า-ออกสะดวก'},
+    ];
+
+    /* ---- Hero slides: ดึง 10 รูปจาก DATA ---- */
+    const HERO_IDX = [0,1,2,3,7,9,10,11,12,13];
+    const typeMap = {
+      house:'บ้าน/ตึก', landhouse:'ที่ดินเหมาะปลูกบ้าน', 'large-land':'ที่แปลงใหญ่'
+    };
+    const pinSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0114 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>`;
+
+    let curFilter='all', curSort='default';
+    let heroIdx=0, heroTimer=null;
+    const HERO_IV=5000;
+
+    /* HERO BUILD */
+    function buildHero(){
+      const track=document.getElementById('heroTrack');
+      const dots=document.getElementById('heroDots');
+      track.innerHTML=HERO_IDX.map((di,si)=>{
+        const d=DATA[di];
+        return `<div class="hero-slide ${si===0?'is-active':''}" data-di="${di}">
+          <img src="${d.img}" alt="${d.title}" loading="${si<2?'eager':'lazy'}">
+          <div class="hero-caption">
+            <div class="hero-caption-type">${d.tag||typeMap[d.type]}</div>
+            <div class="hero-caption-title">${d.title}</div>
+            <div class="hero-caption-loc">${pinSVG}${d.loc}</div>
+            <div class="hero-caption-price">${d.price}<span>บาท</span></div>
+          </div>
+        </div>`;
+      }).join('');
+      dots.innerHTML=HERO_IDX.map((_,i)=>
+        `<button class="hero-dot ${i===0?'active':''}" onclick="heroJump(${i})"></button>`
+      ).join('');
+      updateCounter(); startTimer();
+    }
+
+    function updateCounter(){
+      document.getElementById('heroCounter').textContent=
+        String(heroIdx+1).padStart(2,'0')+' / '+String(HERO_IDX.length).padStart(2,'0');
+    }
+    function setHero(i){
+      heroIdx=(i+HERO_IDX.length)%HERO_IDX.length;
+      document.getElementById('heroTrack').style.transform=`translateX(-${heroIdx*100}%)`;
+      document.querySelectorAll('.hero-dot').forEach((d,j)=>d.classList.toggle('active',j===heroIdx));
+      document.querySelectorAll('.hero-slide').forEach((s,j)=>s.classList.toggle('is-active',j===heroIdx));
+      updateCounter(); resetProg();
+    }
+    function heroMove(d){ clearTimeout(heroTimer); setHero(heroIdx+d); startTimer(); }
+    function heroJump(i){ clearTimeout(heroTimer); setHero(i); startTimer(); }
+
+    let progRAF=null, progT0=null;
+    function resetProg(){
+      cancelAnimationFrame(progRAF);
+      const b=document.getElementById('heroProgress');
+      b.style.transition='none'; b.style.width='0%';
+    }
+    function animProg(){
+      progT0=performance.now();
+      const b=document.getElementById('heroProgress');
+      function step(now){
+        const p=Math.min((now-progT0)/HERO_IV*100,100);
+        b.style.width=p+'%';
+        if(p<100) progRAF=requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    function startTimer(){
+      animProg();
+      heroTimer=setTimeout(()=>{ setHero(heroIdx+1); startTimer(); }, HERO_IV);
+    }
+
+    /* Touch swipe hero */
+    let htx=null;
+    const hc=document.getElementById('heroCarousel');
+    hc.addEventListener('touchstart',e=>{htx=e.touches[0].clientX;},{passive:true});
+    hc.addEventListener('touchend',e=>{
+      if(htx===null)return;
+      const dx=e.changedTouches[0].clientX-htx;
+      if(Math.abs(dx)>40) heroMove(dx<0?1:-1);
+      htx=null;
+    },{passive:true});
+
+    /* NAVBAR */
+    const navToggle=document.getElementById('navToggle');
+    const navMenu=document.getElementById('navMenu');
+    navToggle.addEventListener('click',e=>{
+      e.stopPropagation();
+      navMenu.classList.toggle('active');
+      navToggle.classList.toggle('active');
+    });
+    function closeMenu(){ navMenu.classList.remove('active'); navToggle.classList.remove('active'); }
+    document.addEventListener('click',e=>{
+      if(!navMenu.contains(e.target)&&!navToggle.contains(e.target)&&navMenu.classList.contains('active')) closeMenu();
+    });
+    document.querySelectorAll('.nav-menu a').forEach(a=>{
+      a.addEventListener('click',()=>{
+        document.querySelectorAll('.nav-menu a').forEach(x=>x.classList.remove('active'));
+        a.classList.add('active'); closeMenu();
+      });
+    });
+
+    /* FAB */
+    function toggleFAB(){
+      document.getElementById('fabMain').classList.toggle('active');
+      document.getElementById('fabOptions').classList.toggle('show');
+    }
+
+    /* MODAL */
+    let galImages=[], galIndex=0;
+    function openDetail(idx){
+      const d=DATA[idx];
+      galImages=(d.gallery&&d.gallery.length>0)?d.gallery:[d.img];
+      galIndex=0;
+      const track=document.getElementById('galTrack');
+      const dots=document.getElementById('galDots');
+      track.innerHTML=galImages.map(s=>`<div class="gal-slide"><img src="${s}" draggable="false"></div>`).join('');
+      track.style.transform='translateX(0%)';
+      dots.innerHTML=galImages.map((_,i)=>`<button class="gal-dot ${i===0?'active':''}" onclick="galJump(${i})"></button>`).join('');
+      document.getElementById('modalTitle').textContent=d.title;
+      document.getElementById('modalPrice').textContent=d.price+' บาท';
+      document.getElementById('modalArea').textContent=d.area;
+      document.getElementById('modalDesc').textContent=d.desc;
+      document.getElementById('modalLoc').innerHTML=`${pinSVG}${d.loc}`;
+      const tag=document.getElementById('modalTag');
+      tag.textContent=d.tag||typeMap[d.type]; tag.className='modal-tag tag-'+d.type;
+      const btnMap=document.getElementById('btnMap'), btnFB=document.getElementById('btnFB');
+      btnMap.style.display=d.map?'flex':'none'; btnFB.style.display=d.fbPost?'flex':'none';
+      if(d.map) btnMap.href=d.map; if(d.fbPost) btnFB.href=d.fbPost;
+      document.getElementById('detailModal').classList.add('open');
+      document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden';
+      requestAnimationFrame(()=>{ document.querySelector('.modal-body').scrollTop=0; });
+    }
+    function closeDetail(){
+      document.getElementById('detailModal').classList.remove('open');
+      document.documentElement.style.overflow=''; document.body.style.overflow='';
+    }
+    function overlayClick(e){ if(e.target===document.getElementById('detailModal')) closeDetail(); }
+    function buildDots(){
+      document.getElementById('galDots').innerHTML=galImages.map((_,i)=>
+        `<button class="gal-dot ${i===galIndex?'active':''}" onclick="galJump(${i})"></button>`).join('');
+    }
+    function galMove(dir){ galIndex=(galIndex+dir+galImages.length)%galImages.length; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); }
+    function galJump(i){ galIndex=i; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); }
+
+    /* GRID */
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*55); observer.unobserve(e.target); } });
+    },{threshold:0.08});
+
+    function applySort(){ curSort=document.getElementById('sortSelect').value; render(); }
+    function syncAndSort(el){ document.getElementById('sortSelect').value=el.value; applySort(); }
+
+    function render(f){
+      if(f) curFilter=f;
+      document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.f===curFilter));
+      let items=DATA.map((d,i)=>({...d,_i:i}));
+      if(curFilter!=='all') items=items.filter(d=>d.type===curFilter);
+      document.getElementById('secLabel').textContent=`ทั้งหมด ${items.length} รายการ`;
+      if(curSort==='price-asc') items.sort((a,b)=>a.priceNum-b.priceNum);
+      if(curSort==='price-desc') items.sort((a,b)=>b.priceNum-a.priceNum);
+      const grid=document.getElementById('grid');
+      if(!items.length){ grid.innerHTML='<div class="empty">ไม่พบรายการในหมวดนี้</div>'; return; }
+      grid.innerHTML=items.map(d=>`
+        <div class="card" onclick="openDetail(${d._i})" onmouseenter="preload(${d._i})" ontouchstart="preload(${d._i})">
+          <div class="card-img">
+            <img src="${d.img}" alt="${d.title}" loading="lazy"/>
+            <div class="card-tag tag-${d.type}">${d.tag||typeMap[d.type]}</div>
+          </div>
+          <div class="card-body">
+            <div class="card-loc">${pinSVG}${d.loc}</div>
+            <div class="card-name">${d.title}</div>
+            <div class="card-desc">${d.desc}</div>
+            <div class="card-foot">
+              <div class="card-price">${d.price}<small> บาท</small></div>
+              <div class="card-area">${d.area}</div>
+            </div>
+            <button class="card-btn" onclick="event.stopPropagation();openDetail(${d._i})">ดูรายละเอียด</button>
+          </div>
+        </div>`).join('');
+      requestAnimationFrame(()=>{ grid.querySelectorAll('.card').forEach(c=>observer.observe(c)); });
+    }
+
+    /* Scroll top */
+    const stBtn=document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll',()=>{ stBtn.classList.toggle('show',window.scrollY>500); },{passive:true});
+
+    /* Preload */
+    const preloaded=new Set();
+    function preload(idx){ if(preloaded.has(idx))return; preloaded.add(idx); (DATA[idx].gallery||[DATA[idx].img]).forEach(s=>{new Image().src=s;}); }
+    window.addEventListener('load',()=>{
+      const isMobile=window.matchMedia('(max-width:768px)').matches;
+      if(isMobile){ DATA.slice(0,6).forEach(d=>{new Image().src=d.img;}); setTimeout(()=>DATA.slice(6).forEach(d=>{new Image().src=d.img;}),3000); }
+      else DATA.forEach(d=>{new Image().src=d.img;});
+    });
+
+    /* Chips */
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>render(c.dataset.f)));
+
+    /* INIT */
+    buildHero();
+    render('all');
+  </script>
+
+</body>
+</html>
