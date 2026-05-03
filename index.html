@@ -50,7 +50,7 @@
       width: 100%; height: var(--nav-height);
       background: rgba(255, 255, 255, 0.97);
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-dark);
+      border-bottom: 1px solid rgb(126, 123, 123);
       z-index: 1000; display: flex; align-items: center;
     }
     .nav-container {
@@ -71,8 +71,8 @@
       padding: 6px 14px; border-radius: 6px;
       transition: all .2s;
     }
-    .nav-menu a.active { color: var(--white); font-weight: 500; }
-    .nav-menu a:hover:not(.active) { color: var(--white); background: rgba(255,255,255,.07); }
+    .nav-menu a.active { color: var(--blue-dark); font-weight: 500; }
+    .nav-menu a:hover:not(.active) { color: var(--blue-dark); background: rgba(255,255,255,.07); }
 
     .nav-toggle {
       display: none; background: none; border: none;
@@ -107,55 +107,102 @@
       display: flex; height: 100%;
       transition: transform 0.85s cubic-bezier(0.77,0,0.175,1);
     }
-    .hero-slide {  flex: 0 0 20%;  height: 100%; position: relative; overflow: hidden; }
+    .hero-slide { flex: 0 0 20%; height: 100%; position: relative; overflow: hidden; }
     .hero-slide img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
       transform: scale(1.06);
       transition: transform 6.5s ease;
     }
-    
     .hero-slide::after {
       content: '';
       position: absolute; inset: 0;
       background: linear-gradient(
-        160deg,
-        rgba(0,0,0,0.08) 0%,
-        rgba(0,0,0,0.04) 30%,
-        rgba(0,0,0,0.72) 100%
+        to top,
+        rgba(0,0,0,0.55) 0%,
+        rgba(0,0,0,0.15) 35%,
+        rgba(0,0,0,0) 60%
       );
     }
 
-    /* caption */
-     .hero-caption {
-      position: absolute; 
-      bottom: 5px; left: 5px; right: 5px;
-      z-index: 3; padding: 15px;
-      background: rgba(0, 0, 0, 0.6); /* ใส่พื้นหลังดำจางๆ กันตัวอักษรกลืนกับภาพ */
-      border-radius: 6px;
-      backdrop-filter: blur(4px);
+    /* --- มือถือ --- */
+    @media (max-width: 768px) {
+      .hero-slide { flex: 0 0 100%; }
     }
+
+    /* ============================================================ HERO CAPTION — desktop */
+    .hero-caption {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      z-index: 3;
+      padding: 10px 14px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
     .hero-caption-type {
-      display: inline-block;
-      font-size: 11px; font-weight: 600; letter-spacing: .13em;
+      display: block;
+      align-self: flex-start;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      background: var(--blue); color: #fff;
-      padding: 4px 12px; border-radius: 5px; margin-bottom: 14px;
+      background: var(--blue);
+      color: #fff;
+      padding: 2px 9px 2px 6px;
+      border-radius: 4px;
+      margin-left: -2px;
     }
-     .hero-caption-title {
-      font-size: 16px; /* ลดขนาดชื่อ */
-      font-weight: 600; color: #fff;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* ตัดคำถ้าชื่อยาวไป */
+    .hero-caption-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+    .hero-caption-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+      flex-shrink: 1;
+      min-width: 0;
     }
     .hero-caption-loc {
-      font-size: 14px; color: rgba(255,255,255,.7);
-      display: flex; align-items: center; gap: 5px; margin-bottom: 12px;
+      font-size: 11px;
+      color: rgba(255,255,255,.78);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-shrink: 1;
+      min-width: 0;
     }
-    .hero-caption-loc svg { width: 13px; height: 13px; }
+    .hero-caption-loc svg { width: 11px; height: 11px; flex-shrink: 0; }
     .hero-caption-price {
-      font-size: 22px; font-weight: 400; color: #fff;
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
     }
-    .hero-caption-price span { font-size: 13px; font-weight: 300; opacity: .7; margin-left: 5px; }
+    .hero-caption-price span {
+      font-size: 11px;
+      font-weight: 300;
+      opacity: .75;
+      margin-left: 3px;
+    }
 
     /* arrows */
     .hero-arrow {
@@ -164,12 +211,12 @@
       background: rgba(255,255,255,.1);
       backdrop-filter: blur(8px);
       border: 1px solid rgba(255,255,255,.18);
-      color: #fff; width: 50px; height: 50px; border-radius: 50%;
-      cursor: pointer; font-size: 22px;
+      color: #fff; width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; font-size: 16px;
       display: flex; align-items: center; justify-content: center;
       transition: background .2s, transform .2s;
     }
-    .hero-arrow:hover { background: var(--blue); transform: translateY(-50%) scale(1.08); border-color: var(--blue); }
+    .hero-arrow:hover { background: rgba(19, 19, 19, 0.1); transform: translateY(-50%) scale(1.08);  }
     .hero-arrow-prev { left: 24px; }
     .hero-arrow-next { right: 24px; }
 
@@ -183,10 +230,7 @@
       background: rgba(255,255,255,.35); cursor: pointer;
       transition: all .3s; border: none; padding: 0;
     }
-    .hero-dot.active { background: var(--blue); transform: scale(1.3); }
-
-    /* counter */
-  
+    .hero-dot.active { background: rgba(255,255,255,0.85); transform: scale(1.2); }
 
     /* progress bar */
     .hero-progress {
@@ -194,9 +238,6 @@
       height: 3px; background: var(--blue);
       z-index: 10; width: 0%;
     }
-
-   
-
 
     /* ============================================================ INTRO STRIP */
     .intro-strip {
@@ -243,7 +284,7 @@
       flex: 0 0 calc(50% - 4px); text-align: center; white-space: nowrap;
     }
     .chip:hover { border-color: var(--blue); color: var(--blue); }
-    .chip.active { background: var(--blue); color: var(--white);  box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+    .chip.active { background:var(--ink); color: var(--white); box-shadow: 0 4px 14px rgba(0,0,0,.18); }
     @media (min-width: 640px) { .chip { flex: 0 0 auto; } }
 
     /* ============================================================ SORT */
@@ -294,7 +335,7 @@
     .card-name { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
     .card-desc { font-size: 12px; color: var(--dust); margin-bottom: 14px; line-height: 1.55; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; width: 100%; }
     .card-foot { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
-    .card-price { font-size: 17px; font-weight: 600; color: var(--blue); }
+    .card-price { font-size: 18px; font-weight: 400; color: rgba(9, 4, 82, 0.98); }
     .card-price small { font-size: 11px; font-weight: 400; color: var(--silver); margin-left: 3px; }
     .card-area { font-size: 12px; color: var(--dust); }
 
@@ -418,19 +459,41 @@
 
     /* ============================================================ RESPONSIVE */
     @media (max-width: 768px) {
-       .hero-slide {  flex: 0 0 100%;  height: 100%; position: relative; overflow: hidden; }
-    .hero-slide img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transform: scale(1.06);
-      transition: transform 6.5s ease;
-    }
       .hero-carousel { height: 25vh; min-height: 300px; }
-      .hero-caption { padding: 28px 22px; }
-      .hero-caption-title { font-size: 20px; }
-      .hero-dots { bottom: 32px; right: 22px; }
+
+      /* caption mobile — ครึ่งซ้าย ไม่กินเต็มความกว้าง */
+      .hero-caption {
+        bottom: 8px;
+        left: 8px;
+        right: auto;
+        width: fit-content;
+        max-width: 70%;
+        padding: 8px 11px;
+        gap: 2px;
+        border-radius: 7px;
+      }
+      .hero-caption-type {
+        font-size: 8px;
+        padding: 2px 7px;
+      }
+      .hero-caption-title {
+        font-size: 12px;
+      }
+      .hero-caption-loc {
+        font-size: 9px;
+      }
+      .hero-caption-loc svg { width: 9px; height: 9px; }
+      .hero-caption-price {
+        font-size: 14px;
+      }
+      .hero-caption-price span { font-size: 9px; }
+
+      .hero-dots { bottom: auto; top: 10px; right: 10px; gap: 5px; }
+      .hero-dot { width: 6px; height: 6px; }
+      .intro-strip { padding: 10px 16px; gap: 10px; }
+      .intro-item { font-size: 12px; gap: 6px; }
       .scroll-hint { display: none; }
-      .hero-arrow { width: 38px; height: 38px; font-size: 18px; }
+      .hero-arrow { width: 28px; height: 28px; font-size: 14px; }
       .hero-arrow-prev { left: 12px; } .hero-arrow-next { right: 12px; }
       .nav-container { padding: 0 18px; }
       .nav-toggle { display: block; }
@@ -625,7 +688,7 @@
     </svg>
   </button>
 
-  <script>
+<script>
     const DATA = [
       { title:'ติดถนนเส้น แม่ทะ-บ้านกล้วย', img:'img/44.webp', map:'https://maps.app.goo.gl/fDf4KGpGXNbWGr36A', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'ต.กล้วยแพะ อ.เมือง ลำปาง', priceNum:290000, price:'290,000', type:'landhouse', area:'74 ตร.ว.', desc:'ที่ดินทำเลดี เนื้อที่ 74 ตร.ว หน้ากว้าง 40 เมตร  ติดถนนสายหลักแม่ทะ–บ้านกล้วย เดินทางสะดวกรถสัญจรผ่านตลอด \n\n- ลงตัวทั้งปลูกบ้าน/ทำธุรกิจ หรือเก็งกำไรในอนาคต \n - ราคาเพียง 290,000 บาท (ราคานี้รวมโอน) ', gallery:['img/1/3.webp','img/1/1.webp','img/1/2.webp'] },
       { title:'หมู่บ้านเด่นสโรชา', img:'img/88.webp', map:'https://maps.app.goo.gl/v6auFGytfLS6wrFo6', fbPost:'https://www.facebook.com/share/p/1CdLrD8f8Q/', loc:'ต.พิชัย อ.เมือง ลำปาง', priceNum:450000, price:'450,000', type:'landhouse', area:'99 ตร.ว.', desc:'ที่ดินราคาดี (อยู่ในหมู่บ้านเด่นสโรชา) เนื้อที่ 99 ตร.ว บรรยากาศเงียบสงบเหมาะสำหรับปลูกบ้านอยู่อาศัย \n\n- หน้ากว้าง 20 เมตร ลึก 19 เมตร \n- น้ำประปา/ไฟฟ้า/ถนนลาดยางครบ \n- เดินทางเข้าออกสะดวกเข้าตัวเมืองแค่ 7 นาที', gallery:['img/2/1.webp','img/2/2.webp'] },
@@ -652,52 +715,61 @@
       { title:'ใกล้วัดพระธาตุลำปางหลวง', img:'img/25.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.แจ้ห่ม ลำปาง', priceNum:1250000, price:'1,250,000', type:'large-land', area:'2-1-65 ไร่', desc:'ที่ดินทำเลทองบรรยากาศธรรมชาติ มองเห็นเจดีย์วัดพระธาตุลำปางหลวง ขนาด 2 ไร่ 1 งาน 65 ตารางวา  \n\n- ไฟฟ้า/น้ำประปา/ถนน \n- ทางเข้า-ออกสะดวก'},
     ];
 
-    /* ---- Hero slides: ดึง 10 รูปจาก DATA ---- */
     const HERO_IDX = [0,1,2,3,7,9,10,11,12,13];
-    const typeMap = {
-      house:'บ้าน/ตึก', landhouse:'ที่ดินเหมาะปลูกบ้าน', 'large-land':'ที่แปลงใหญ่'
-    };
+    const typeMap = { house:'บ้าน/ตึก', landhouse:'ที่ดินเหมาะปลูกบ้าน', 'large-land':'ที่แปลงใหญ่' };
     const pinSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0114 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>`;
 
-    let curFilter='all', curSort='default';
-    let heroIdx=0, heroTimer=null;
+    let curFilter='all', curSort='default', heroIdx=0, heroTimer=null;
     const HERO_IV=5000;
 
-    /* HERO BUILD */
+    function getPages() { return window.innerWidth <= 768 ? HERO_IDX.length : 2; }
+
     function buildHero(){
-      const track=document.getElementById('heroTrack');
-      const dots=document.getElementById('heroDots');
-      track.innerHTML=HERO_IDX.map((di,si)=>{
-        const d=DATA[di];
-        return `<div class="hero-slide ${si===0?'is-active':''}" data-di="${di}">
-          <img src="${d.img}" alt="${d.title}" loading="${si<2?'eager':'lazy'}">
+      const track = document.getElementById('heroTrack');
+      track.innerHTML = HERO_IDX.map((di, si) => {
+        const d = DATA[di];
+        return `<div class="hero-slide" data-di="${di}">
+          <img src="${d.img}" alt="${d.title}" loading="${si < 5 ? 'eager' : 'lazy'}">
           <div class="hero-caption">
-            <div class="hero-caption-type">${d.tag||typeMap[d.type]}</div>
-            <div class="hero-caption-title">${d.title}</div>
-            <div class="hero-caption-loc">${pinSVG}${d.loc}</div>
+            <div class="hero-caption-type">${d.tag || typeMap[d.type]}</div>
+            <div class="hero-caption-title-row">
+              <span class="hero-caption-title">${d.title}</span>
+              <span class="hero-caption-loc">${pinSVG}${d.loc}</span>
+            </div>
             <div class="hero-caption-price">${d.price}<span>บาท</span></div>
           </div>
         </div>`;
       }).join('');
-      dots.innerHTML=HERO_IDX.map((_,i)=>
-        `<button class="hero-dot ${i===0?'active':''}" onclick="heroJump(${i})"></button>`
-      ).join('');
-      updateCounter(); startTimer();
+      renderDots(); updateCounter(); startTimer();
+    }
+
+    function renderDots() {
+      const dots = document.getElementById('heroDots');
+      const pages = getPages();
+      let html = '';
+      for (let i = 0; i < pages; i++) {
+        html += `<button class="hero-dot ${i === heroIdx ? 'active' : ''}" onclick="heroJump(${i})"></button>`;
+      }
+      dots.innerHTML = html;
+    }
+
+    function setHero(i){
+      const pages = getPages();
+      heroIdx = (i + pages) % pages;
+      document.getElementById('heroTrack').style.transform = `translateX(-${heroIdx * 100}%)`;
+      document.querySelectorAll('.hero-dot').forEach((d, j) => d.classList.toggle('active', j === heroIdx));
+      updateCounter(); resetProg();
     }
 
     function updateCounter(){
-      document.getElementById('heroCounter').textContent=
-        String(heroIdx+1).padStart(2,'0')+' / '+String(HERO_IDX.length).padStart(2,'0');
+      const pages = getPages();
+      document.getElementById('heroCounter').textContent = String(heroIdx + 1).padStart(2, '0') + ' / ' + String(pages).padStart(2, '0');
     }
-    function setHero(i){
-      heroIdx=(i+HERO_IDX.length)%HERO_IDX.length;
-      document.getElementById('heroTrack').style.transform=`translateX(-${heroIdx*100}%)`;
-      document.querySelectorAll('.hero-dot').forEach((d,j)=>d.classList.toggle('active',j===heroIdx));
-      document.querySelectorAll('.hero-slide').forEach((s,j)=>s.classList.toggle('is-active',j===heroIdx));
-      updateCounter(); resetProg();
-    }
+
     function heroMove(d){ clearTimeout(heroTimer); setHero(heroIdx+d); startTimer(); }
     function heroJump(i){ clearTimeout(heroTimer); setHero(i); startTimer(); }
+
+    window.addEventListener('resize', () => { heroIdx = 0; renderDots(); setHero(0); });
 
     let progRAF=null, progT0=null;
     function resetProg(){
@@ -715,10 +787,7 @@
       }
       requestAnimationFrame(step);
     }
-    function startTimer(){
-      animProg();
-      heroTimer=setTimeout(()=>{ setHero(heroIdx+1); startTimer(); }, HERO_IV);
-    }
+    function startTimer(){ animProg(); heroTimer=setTimeout(()=>{ setHero(heroIdx+1); startTimer(); }, HERO_IV); }
 
     /* Touch swipe hero */
     let htx=null;
@@ -734,27 +803,13 @@
     /* NAVBAR */
     const navToggle=document.getElementById('navToggle');
     const navMenu=document.getElementById('navMenu');
-    navToggle.addEventListener('click',e=>{
-      e.stopPropagation();
-      navMenu.classList.toggle('active');
-      navToggle.classList.toggle('active');
-    });
+    navToggle.addEventListener('click',e=>{ e.stopPropagation(); navMenu.classList.toggle('active'); navToggle.classList.toggle('active'); });
     function closeMenu(){ navMenu.classList.remove('active'); navToggle.classList.remove('active'); }
-    document.addEventListener('click',e=>{
-      if(!navMenu.contains(e.target)&&!navToggle.contains(e.target)&&navMenu.classList.contains('active')) closeMenu();
-    });
-    document.querySelectorAll('.nav-menu a').forEach(a=>{
-      a.addEventListener('click',()=>{
-        document.querySelectorAll('.nav-menu a').forEach(x=>x.classList.remove('active'));
-        a.classList.add('active'); closeMenu();
-      });
-    });
+    document.addEventListener('click',e=>{ if(!navMenu.contains(e.target)&&!navToggle.contains(e.target)&&navMenu.classList.contains('active')) closeMenu(); });
+    document.querySelectorAll('.nav-menu a').forEach(a=>{ a.addEventListener('click',()=>{ document.querySelectorAll('.nav-menu a').forEach(x=>x.classList.remove('active')); a.classList.add('active'); closeMenu(); }); });
 
     /* FAB */
-    function toggleFAB(){
-      document.getElementById('fabMain').classList.toggle('active');
-      document.getElementById('fabOptions').classList.toggle('show');
-    }
+    function toggleFAB(){ document.getElementById('fabMain').classList.toggle('active'); document.getElementById('fabOptions').classList.toggle('show'); }
 
     /* MODAL */
     let galImages=[], galIndex=0;
@@ -781,23 +836,14 @@
       document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden';
       requestAnimationFrame(()=>{ document.querySelector('.modal-body').scrollTop=0; });
     }
-    function closeDetail(){
-      document.getElementById('detailModal').classList.remove('open');
-      document.documentElement.style.overflow=''; document.body.style.overflow='';
-    }
+    function closeDetail(){ document.getElementById('detailModal').classList.remove('open'); document.documentElement.style.overflow=''; document.body.style.overflow=''; }
     function overlayClick(e){ if(e.target===document.getElementById('detailModal')) closeDetail(); }
-    function buildDots(){
-      document.getElementById('galDots').innerHTML=galImages.map((_,i)=>
-        `<button class="gal-dot ${i===galIndex?'active':''}" onclick="galJump(${i})"></button>`).join('');
-    }
+    function buildDots(){ document.getElementById('galDots').innerHTML=galImages.map((_,i)=> `<button class="gal-dot ${i===galIndex?'active':''}" onclick="galJump(${i})"></button>`).join(''); }
     function galMove(dir){ galIndex=(galIndex+dir+galImages.length)%galImages.length; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); }
     function galJump(i){ galIndex=i; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); }
 
     /* GRID */
-    const observer=new IntersectionObserver(entries=>{
-      entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*55); observer.unobserve(e.target); } });
-    },{threshold:0.08});
-
+    const observer=new IntersectionObserver(entries=>{ entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*55); observer.unobserve(e.target); } }); },{threshold:0.08});
     function applySort(){ curSort=document.getElementById('sortSelect').value; render(); }
     function syncAndSort(el){ document.getElementById('sortSelect').value=el.value; applySort(); }
 
@@ -831,11 +877,8 @@
       requestAnimationFrame(()=>{ grid.querySelectorAll('.card').forEach(c=>observer.observe(c)); });
     }
 
-    /* Scroll top */
     const stBtn=document.getElementById('scrollTopBtn');
     window.addEventListener('scroll',()=>{ stBtn.classList.toggle('show',window.scrollY>500); },{passive:true});
-
-    /* Preload */
     const preloaded=new Set();
     function preload(idx){ if(preloaded.has(idx))return; preloaded.add(idx); (DATA[idx].gallery||[DATA[idx].img]).forEach(s=>{new Image().src=s;}); }
     window.addEventListener('load',()=>{
@@ -843,13 +886,8 @@
       if(isMobile){ DATA.slice(0,6).forEach(d=>{new Image().src=d.img;}); setTimeout(()=>DATA.slice(6).forEach(d=>{new Image().src=d.img;}),3000); }
       else DATA.forEach(d=>{new Image().src=d.img;});
     });
-
-    /* Chips */
     document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>render(c.dataset.f)));
-
-    /* INIT */
-    buildHero();
-    render('all');
+    buildHero(); render('all');
   </script>
 
 </body>
