@@ -9,7 +9,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
+     :root {
       --ink:       #0a0a0a;
       --ink-mid:   #1a1a1a;
       --ink-soft:  #3a3a3a;
@@ -50,7 +50,7 @@
       width: 100%; height: var(--nav-height);
       background: rgba(255, 255, 255, 0.97);
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgb(126, 123, 123);
+      border-bottom: none;
       z-index: 1000; display: flex; align-items: center;
     }
     .nav-container {
@@ -58,10 +58,13 @@
       margin: 0 auto; padding: 0 28px;
       display: flex; justify-content: space-between; align-items: center;
     }
-    .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 5px; }
     .logo-img  { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #c0c0c0; }
-    .logo-text { display: flex; flex-direction: column; line-height: 1.15; }
-    .logo-top    { font-size: 13px; font-weight: 400; color: black; letter-spacing: .04em; }
+    .logo-text {
+      display: flex; flex-direction: column;
+      line-height: 1.0; padding-top: 3px;
+    }
+    .logo-top    { font-size: 13px; font-weight: 400; color: black; }
     .logo-bottom { font-size: 16px; font-weight: 600; color: var(--blue); }
 
     .nav-menu { display: flex; gap: 2px; list-style: none; align-items: center; }
@@ -71,7 +74,7 @@
       padding: 6px 14px; border-radius: 6px;
       transition: all .2s;
     }
-    .nav-menu a.active { color: var(--blue-dark); font-weight: 500; }
+    .nav-menu a.active { color: var(--ink); font-weight: 500; }
     .nav-menu a:hover:not(.active) { color: var(--blue-dark); background: rgba(255,255,255,.07); }
 
     .nav-toggle {
@@ -99,144 +102,105 @@
     /* ============================================================ HERO CAROUSEL */
     .hero-carousel {
       position: relative; width: 100%;
-      height: 25vh; min-height: 400px;
-      overflow: hidden; background: var(--ink);
+      overflow: hidden; background: transparent;
       margin-top: var(--nav-height);
     }
     .hero-track {
-      display: flex; height: 100%;
+      display: flex;
+      gap: 0;
       transition: transform 0.85s cubic-bezier(0.77,0,0.175,1);
     }
-    .hero-slide { flex: 0 0 20%; height: 100%; position: relative; overflow: hidden; }
-    .hero-slide img {
+    .hero-slide {
+      flex: 0 0 20%;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .hero-slide-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      flex-shrink: 0; overflow: hidden; position: relative;
+    }
+    .hero-slide-img img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
-      transform: scale(1.06);
-      transition: transform 6.5s ease;
+      transition: none;
     }
-    .hero-slide::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.55) 0%,
-        rgba(0,0,0,0.15) 35%,
-        rgba(0,0,0,0) 60%
-      );
-    }
-
-    /* --- มือถือ --- */
     @media (max-width: 768px) {
       .hero-slide { flex: 0 0 100%; }
     }
-
-    /* ============================================================ HERO CAPTION — desktop */
     .hero-caption {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      right: 10px;
-      z-index: 3;
+      flex-shrink: 0;
       padding: 10px 14px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 8px;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+      background:var(--ink-mid);
+      display: flex; flex-direction: column; gap: 4px;
     }
-
     .hero-caption-type {
-      display: block;
-      align-self: flex-start;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .1em;
+      margin-bottom: 3px;
+      display: block; align-self: flex-start;
+      font-size: 10px; font-weight: 600; letter-spacing: .1em;
       text-transform: uppercase;
-      background: var(--blue);
-      color: #fff;
-      padding: 2px 9px 2px 6px;
-      border-radius: 4px;
-      margin-left: -2px;
+      background: var(--blue); color: #fff;
+      padding: 2px 9px; border-radius: 4px;
     }
     .hero-caption-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow: hidden;
+      display: flex; align-items: center; gap: 8px; overflow: hidden;
     }
     .hero-caption-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1.3;
-      flex-shrink: 1;
-      min-width: 0;
+      font-size: 15px; font-weight: 500; color: #fff;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      line-height: 1.3; flex-shrink: 1; min-width: 0;
     }
     .hero-caption-loc {
-      font-size: 11px;
-      color: rgba(255,255,255,.78);
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      line-height: 1.2;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      flex-shrink: 1;
-      min-width: 0;
+      font-size: 11px; color: rgba(255,255,255,.6);
+      display: flex; align-items: center; gap: 3px;
+      line-height: 1.2; white-space: nowrap; overflow: hidden;
+      text-overflow: ellipsis; flex-shrink: 1; min-width: 0;
     }
     .hero-caption-loc svg { width: 11px; height: 11px; flex-shrink: 0; }
     .hero-caption-price {
-      font-size: 17px;
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.2;
+      font-size: 17px; font-weight: 400; color: #fff; line-height: 1.2;
     }
-    .hero-caption-price span {
-      font-size: 11px;
-      font-weight: 300;
-      opacity: .75;
-      margin-left: 3px;
+    .hero-caption-price span { font-size: 11px; font-weight: 300; opacity: .6; margin-left: 3px; }
+    .hero-caption-bottom {
+      display: flex; align-items: baseline; justify-content: space-between;
     }
-
+    .hero-caption-area {
+      font-size: 12px; color: rgba(255,255,255,.55);
+    }
     /* arrows */
     .hero-arrow {
       position: absolute; top: 50%; transform: translateY(-50%);
-      z-index: 10;
-      background: rgba(255,255,255,.1);
-      backdrop-filter: blur(8px);
+      z-index: 10; background: rgba(255,255,255,.1); backdrop-filter: blur(8px);
       border: 1px solid rgba(255,255,255,.18);
       color: #fff; width: 36px; height: 36px; border-radius: 50%;
       cursor: pointer; font-size: 16px;
       display: flex; align-items: center; justify-content: center;
       transition: background .2s, transform .2s;
     }
-    .hero-arrow:hover { background: rgba(19, 19, 19, 0.1); transform: translateY(-50%) scale(1.08);  }
+    .hero-arrow:hover { background:  rgba(58, 58, 58, 0.664);  }
     .hero-arrow-prev { left: 24px; }
     .hero-arrow-next { right: 24px; }
-
     /* dots */
     .hero-dots {
-      position: absolute; bottom: 56px; right: 56px;
-      z-index: 10; display: flex; gap: 8px; align-items: center;
+      position: absolute; top: 10px; right: 10px;
+      z-index: 10; display: flex; gap: 5px; align-items: center;
     }
     .hero-dot {
-      width: 8px; height: 8px; border-radius: 50%;
+      width: 6px; height: 6px; border-radius: 50%;
       background: rgba(255,255,255,.35); cursor: pointer;
       transition: all .3s; border: none; padding: 0;
     }
     .hero-dot.active { background: rgba(255,255,255,0.85); transform: scale(1.2); }
-
     /* progress bar */
     .hero-progress {
       position: absolute; bottom: 0; left: 0;
-      height: 3px; background: var(--blue);
-      z-index: 10; width: 0%;
+      height: 3px; background: var(--blue); z-index: 10; width: 0%;
+    }
+    @media (max-width: 768px) {
+      .hero-arrow { width: 28px; height: 28px; font-size: 14px; }
+      .hero-arrow-prev { left: 12px; } .hero-arrow-next { right: 12px; }
+      .intro-strip { padding: 10px 16px; gap: 10px; }
+      .intro-item { font-size: 12px; gap: 6px; }
     }
 
     /* ============================================================ INTRO STRIP */
@@ -283,8 +247,8 @@
       cursor: pointer; transition: all .2s;
       flex: 0 0 calc(50% - 4px); text-align: center; white-space: nowrap;
     }
-    .chip:hover { border-color: var(--blue); color: var(--blue); }
-    .chip.active { background:var(--ink); color: var(--white); box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+    .chip:hover { border-color: var(--ink-soft); color: var(--ink-soft); }
+    .chip.active { background: var(--ink-mid); color: var(--white); box-shadow: 0 4px 14px rgba(0,0,0,.18); }
     @media (min-width: 640px) { .chip { flex: 0 0 auto; } }
 
     /* ============================================================ SORT */
@@ -327,7 +291,7 @@
     .card-tag { position: absolute; top: 11px; left: 11px; font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 6px; }
     .tag-house      { background: var(--blue-light); color: var(--blue); }
     .tag-landhouse  { background: var(--green-light); color: var(--green-dark); }
-    .tag-large-land { background: var(--yellow-light); color: var(--yellow-dark); }
+    .tag-large-land { background: var(--green-light); color: var(--green-dark); }
 
     .card-body { padding: 16px 18px 18px; }
     .card-loc  { font-size: 11px; color: var(--silver); margin-bottom: 5px; display: flex; align-items: center; gap: 4px; }
@@ -335,7 +299,7 @@
     .card-name { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
     .card-desc { font-size: 12px; color: var(--dust); margin-bottom: 14px; line-height: 1.55; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; width: 100%; }
     .card-foot { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
-    .card-price { font-size: 18px; font-weight: 400; color: rgba(9, 4, 82, 0.98); }
+    .card-price { font-size: 18px; font-weight: 400; color: var(--ink-mid); }
     .card-price small { font-size: 11px; font-weight: 400; color: var(--silver); margin-left: 3px; }
     .card-area { font-size: 12px; color: var(--dust); }
 
@@ -443,7 +407,7 @@
     .fab-wrapper { position: fixed; bottom: 28px; right: 28px; z-index: 9999; display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .fab-options { display: flex; flex-direction: column; gap: 10px; visibility: hidden; opacity: 0; transform: translateY(30px) scale(0.7); transition: all .3s cubic-bezier(0.175,0.885,0.32,1.275); }
     .fab-options.show { visibility: visible; opacity: 1; transform: translateY(0) scale(1); }
-    .fab-main { width: 54px; height: 54px; border-radius: 50%; background: var(--white); border: none; box-shadow: 0 6px 20px rgba(0,0,0,.18); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .3s; z-index: 2; padding: 0; overflow: hidden; outline: none; -webkit-tap-highlight-color: transparent; }
+    .fab-main { width: 50px; height: 50px; border-radius: 50%; background: var(--white); border: none; box-shadow: 0 6px 20px rgba(0,0,0,.18); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .3s; z-index: 2; padding: 0; overflow: hidden; outline: none; -webkit-tap-highlight-color: transparent; }
     .fab-main img { width: 38px; height: 38px; object-fit: contain; }
     .fab-main.active { transform: scale(1.1); background: var(--fog); }
     .fab-mini { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.15); transition: transform .2s; }
@@ -459,41 +423,8 @@
 
     /* ============================================================ RESPONSIVE */
     @media (max-width: 768px) {
-      .hero-carousel { height: 25vh; min-height: 300px; }
-
-      /* caption mobile — ครึ่งซ้าย ไม่กินเต็มความกว้าง */
-      .hero-caption {
-        bottom: 8px;
-        left: 8px;
-        right: auto;
-        width: fit-content;
-        max-width: 70%;
-        padding: 8px 11px;
-        gap: 2px;
-        border-radius: 7px;
-      }
-      .hero-caption-type {
-        font-size: 8px;
-        padding: 2px 7px;
-      }
-      .hero-caption-title {
-        font-size: 12px;
-      }
-      .hero-caption-loc {
-        font-size: 9px;
-      }
-      .hero-caption-loc svg { width: 9px; height: 9px; }
-      .hero-caption-price {
-        font-size: 14px;
-      }
-      .hero-caption-price span { font-size: 9px; }
-
-      .hero-dots { bottom: auto; top: 10px; right: 10px; gap: 5px; }
-      .hero-dot { width: 6px; height: 6px; }
       .intro-strip { padding: 10px 16px; gap: 10px; }
       .intro-item { font-size: 12px; gap: 6px; }
-      .scroll-hint { display: none; }
-      .hero-arrow { width: 28px; height: 28px; font-size: 14px; }
       .hero-arrow-prev { left: 12px; } .hero-arrow-next { right: 12px; }
       .nav-container { padding: 0 18px; }
       .nav-toggle { display: block; }
@@ -503,14 +434,14 @@
         flex-direction: column; padding: 0; gap: 0;
         transform: translateX(110%);
         transition: transform .3s cubic-bezier(.4,0,.2,1);
-        z-index: 1001; border-left: 1px solid var(--border-dark);
+        z-index: 1001; 
       }
       .nav-menu.active { transform: translateX(0); }
       .nav-menu li { width: 100%; }
       .mobile-exit-section { display: block; }
-      .btn-exit { width: 100%; height: 58px; background: var(--ink); border: none; display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Prompt', sans-serif; font-size: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; border-bottom: 1px solid var(--border-dark); }
+      .btn-exit { width: 100%; height: 63px; background: var(--white); border: none; display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Prompt', sans-serif; font-size: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
       .nav-menu a { display: flex; align-items: center; justify-content: center; padding: 15px 0; font-size: 15px; color: var(--silver); border-radius: 0; border-bottom: 1px solid var(--border-dark); width: 100%; }
-      .nav-menu a.active { color: var(--white); background: rgba(26,79,214,.1); }
+      .nav-menu a.active { color: var(--white); background: lab(100% 0.01 -0.01 / 0.075); }
       .section-head { padding: 36px 0 22px; }
       .desktop-only { display: none !important; }
       .mobile-sort-btn { display: flex; }
@@ -521,7 +452,7 @@
     }
     @media (max-width: 360px) { .detail-value { font-size: 14px; } .detail-price .detail-value { font-size: 15px; } }
 
-    .nav-toggle, .btn-exit, .nav-menu a, .chip, .btn-cta, .card-btn, .fab-main, .fab-mini, .gal-btn, .modal-close, .hero-arrow {
+    .nav-toggle, .btn-exit, .nav-menu a, .chip, .btn-cta, .card-btn, .fab-main, .fab-mini, .gal-btn, .modal-close {
       touch-action: manipulation; -webkit-tap-highlight-color: transparent;
     }
   </style>
@@ -596,24 +527,18 @@
       <div class="hero-track" id="heroTrack"></div>
       <button class="hero-arrow hero-arrow-prev" onclick="heroMove(-1)">‹</button>
       <button class="hero-arrow hero-arrow-next" onclick="heroMove(1)">›</button>
-      <div class="hero-counter" id="heroCounter">01 / 10</div>
       <div class="hero-dots" id="heroDots"></div>
       <div class="hero-progress" id="heroProgress"></div>
     </div>
 
-    <!-- INTRO STRIP -->
-    <div class="intro-strip">
-      <div class="intro-item"><div class="intro-dot"></div><span>ที่ดินสวย & บ้านราคาดี <strong>จังหวัดลำปาง</strong></span></div>
-      <div class="intro-item"><div class="intro-dot"></div><span>ติดต่อ <strong>088-269-2553</strong></span></div>
-      <div class="intro-item"><div class="intro-dot"></div><span>ยินดีให้คำปรึกษา <strong>ฟรี</strong></span></div>
-    </div>
+
 
     <div class="page">
 
       <!-- Section head -->
       <div id="listings" class="section-head">
         <div>
-          <span class="section-eyebrow">Properties</span>
+       
           <div class="section-title">รายการทรัพย์สิน</div>
           <div class="section-count" id="secLabel">ทั้งหมด 0 รายการ</div>
         </div>
@@ -646,7 +571,10 @@
 
       <div class="grid" id="grid"></div>
 
-      <!-- FAB -->
+   
+  </main>
+
+     <!-- FAB -->
       <div class="fab-wrapper">
         <div class="fab-options" id="fabOptions">
           <a href="https://www.facebook.com/profile.php?id=61585932872107" target="_blank" class="fab-mini fb">
@@ -660,11 +588,10 @@
           </a>
         </div>
         <button class="fab-main" id="fabMain" onclick="toggleFAB()">
-          <img src="img/other/call2.png" alt="Call">
+          <img src="img/other/call3.png" alt="Call">
         </button>
       </div>
     </div>
-  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -687,6 +614,8 @@
       <polyline points="18 15 12 9 6 15"/>
     </svg>
   </button>
+
+
 
 <script>
     const DATA = [
@@ -729,47 +658,47 @@
       track.innerHTML = HERO_IDX.map((di, si) => {
         const d = DATA[di];
         return `<div class="hero-slide" data-di="${di}">
-          <img src="${d.img}" alt="${d.title}" loading="${si < 5 ? 'eager' : 'lazy'}">
+          <div class="hero-slide-img">
+            <img src="${d.img}" alt="${d.title}" loading="${si < 5 ? 'eager' : 'lazy'}">
+          </div>
           <div class="hero-caption">
             <div class="hero-caption-type">${d.tag || typeMap[d.type]}</div>
             <div class="hero-caption-title-row">
               <span class="hero-caption-title">${d.title}</span>
               <span class="hero-caption-loc">${pinSVG}${d.loc}</span>
             </div>
-            <div class="hero-caption-price">${d.price}<span>บาท</span></div>
+            <div class="hero-caption-bottom">
+              <div class="hero-caption-price">${d.price}<span>บาท</span></div>
+              <div class="hero-caption-area">${d.area}</div>
+            </div>
           </div>
         </div>`;
       }).join('');
       renderDots(); updateCounter(); startTimer();
     }
 
-    function renderDots() {
+    function renderDots(){
       const dots = document.getElementById('heroDots');
       const pages = getPages();
       let html = '';
-      for (let i = 0; i < pages; i++) {
-        html += `<button class="hero-dot ${i === heroIdx ? 'active' : ''}" onclick="heroJump(${i})"></button>`;
-      }
+      for(let i=0;i<pages;i++) html+=`<button class="hero-dot ${i===heroIdx?'active':''}" onclick="heroJump(${i})"></button>`;
       dots.innerHTML = html;
     }
 
     function setHero(i){
       const pages = getPages();
-      heroIdx = (i + pages) % pages;
-      document.getElementById('heroTrack').style.transform = `translateX(-${heroIdx * 100}%)`;
-      document.querySelectorAll('.hero-dot').forEach((d, j) => d.classList.toggle('active', j === heroIdx));
+      heroIdx = (i+pages)%pages;
+      document.getElementById('heroTrack').style.transform = `translateX(-${heroIdx*100}%)`;
+      document.querySelectorAll('.hero-dot').forEach((d,j)=>d.classList.toggle('active',j===heroIdx));
       updateCounter(); resetProg();
     }
 
-    function updateCounter(){
-      const pages = getPages();
-      document.getElementById('heroCounter').textContent = String(heroIdx + 1).padStart(2, '0') + ' / ' + String(pages).padStart(2, '0');
-    }
+    function updateCounter(){ /* counter removed */ }
 
     function heroMove(d){ clearTimeout(heroTimer); setHero(heroIdx+d); startTimer(); }
     function heroJump(i){ clearTimeout(heroTimer); setHero(i); startTimer(); }
 
-    window.addEventListener('resize', () => { heroIdx = 0; renderDots(); setHero(0); });
+    window.addEventListener('resize',()=>{ heroIdx=0; renderDots(); setHero(0); });
 
     let progRAF=null, progT0=null;
     function resetProg(){
@@ -780,16 +709,11 @@
     function animProg(){
       progT0=performance.now();
       const b=document.getElementById('heroProgress');
-      function step(now){
-        const p=Math.min((now-progT0)/HERO_IV*100,100);
-        b.style.width=p+'%';
-        if(p<100) progRAF=requestAnimationFrame(step);
-      }
+      function step(now){ const p=Math.min((now-progT0)/HERO_IV*100,100); b.style.width=p+'%'; if(p<100) progRAF=requestAnimationFrame(step); }
       requestAnimationFrame(step);
     }
-    function startTimer(){ animProg(); heroTimer=setTimeout(()=>{ setHero(heroIdx+1); startTimer(); }, HERO_IV); }
+    function startTimer(){ animProg(); heroTimer=setTimeout(()=>{ setHero(heroIdx+1); startTimer(); },HERO_IV); }
 
-    /* Touch swipe hero */
     let htx=null;
     const hc=document.getElementById('heroCarousel');
     hc.addEventListener('touchstart',e=>{htx=e.touches[0].clientX;},{passive:true});
