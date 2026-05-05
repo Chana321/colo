@@ -62,7 +62,7 @@
     .logo-img  { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #c0c0c0; }
     .logo-text {
       display: flex; flex-direction: column;
-      line-height: 1.0; padding-top: 3px;
+      line-height: 0.9; padding-top: 4px;
     }
     .logo-top    { font-size: 13px; font-weight: 400; color: black; }
     .logo-bottom { font-size: 16px; font-weight: 600; color: var(--blue); }
@@ -104,6 +104,7 @@
       position: relative; width: 100%;
       overflow: hidden; background: transparent;
       margin-top: var(--nav-height);
+      
     }
     .hero-track {
       display: flex;
@@ -195,12 +196,6 @@
     .hero-progress {
       position: absolute; bottom: 0; left: 0;
       height: 3px; background: var(--blue); z-index: 10; width: 0%;
-    }
-    @media (max-width: 768px) {
-      .hero-arrow { width: 28px; height: 28px; font-size: 14px; }
-      .hero-arrow-prev { left: 12px; } .hero-arrow-next { right: 12px; }
-      .intro-strip { padding: 10px 16px; gap: 10px; }
-      .intro-item { font-size: 12px; gap: 6px; }
     }
 
     /* ============================================================ INTRO STRIP */
@@ -311,13 +306,35 @@
       cursor: pointer; background: none;
       transition: background .15s, border-color .15s, color .15s;
     }
-    .card-btn:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .card-btn:hover { background: var(--ink-mid); color: var(--white); border-color: var(--ink); }
 
     .empty { grid-column: 1/-1; text-align: center; padding: 80px 24px; color: var(--dust); }
 
+    /* ============================================================ PAGINATION */
+    .pagination {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; margin-top: 40px; width: 100%;
+    }
+    .page-btn {
+      font-family: 'Prompt', sans-serif; font-size: 14px; font-weight: 500;
+      padding: 8px 16px; border-radius: 8px;
+      border: 1.5px solid var(--ink-mid);
+      background: var(--white); color: var(--ink-mid);  
+      cursor: pointer; transition: all .2s; 
+    } 
+    .page-btn:hover:not(:disabled) {
+      border-color: var(--ink-soft); color: var(--ink-soft);
+    }
+    .page-btn:disabled {
+      opacity: 0.4; cursor: not-allowed;
+    }
+    .page-info {
+      font-size: 14px; color: var(--ink-mid); font-weight: 450;
+    }
+
     /* ============================================================ FOOTER */
     footer {
-      margin-top: 80px;
+      margin-top: 80 px;
       background: var(--ink-mid);
       color: var(--white);
       padding: 52px 28px 32px;
@@ -366,7 +383,7 @@
     .gal-prev { left: 12px; } .gal-next { right: 12px; }
     .gal-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
     .gal-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.45); cursor: pointer; transition: background .2s; border: none; padding: 0; }
-    .gal-dot.active { background: var(--blue); }
+    .gal-dot.active { background:  rgba(255, 255, 255, 0.144); }
 
     .modal-close {
       position: absolute; top: 12px; right: 12px;
@@ -408,8 +425,8 @@
     .fab-options { display: flex; flex-direction: column; gap: 10px; visibility: hidden; opacity: 0; transform: translateY(30px) scale(0.7); transition: all .3s cubic-bezier(0.175,0.885,0.32,1.275); }
     .fab-options.show { visibility: visible; opacity: 1; transform: translateY(0) scale(1); }
     .fab-main { width: 50px; height: 50px; border-radius: 50%; background: var(--white); border: none; box-shadow: 0 6px 20px rgba(0,0,0,.18); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .3s; z-index: 2; padding: 0; overflow: hidden; outline: none; -webkit-tap-highlight-color: transparent; }
-    .fab-main img { width: 38px; height: 38px; object-fit: contain; }
-    .fab-main.active { transform: scale(1.1); background: var(--fog); }
+    .fab-main img { width: 38px; height: 38px; object-fit: contain; } 
+    .fab-main.active { transform: scale(1.05); }
     .fab-mini { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.15); transition: transform .2s; }
     .fab-mini:hover { transform: scale(1.1); }
     .fab-mini.line { background: #00b900; }
@@ -423,6 +440,7 @@
 
     /* ============================================================ RESPONSIVE */
     @media (max-width: 768px) {
+      .hero-arrow { width: 28px; height: 28px; font-size: 14px; }
       .intro-strip { padding: 10px 16px; gap: 10px; }
       .intro-item { font-size: 12px; gap: 6px; }
       .hero-arrow-prev { left: 12px; } .hero-arrow-next { right: 12px; }
@@ -449,6 +467,9 @@
       .gal-btn { width: 33px !important; height: 33px !important; font-size: 16px !important; }
       .fab-wrapper { bottom: 20px; right: 20px; }
       .scroll-top { bottom: 20px; left: 20px; }
+      /* ปรับระยะห่าง Footer บน Mobile ให้ชิดขึ้น */
+      .page { padding-bottom: 40px; }
+      footer { margin-top: 10px; padding: 40px 18px 24px; }
     }
     @media (max-width: 360px) { .detail-value { font-size: 14px; } .detail-price .detail-value { font-size: 15px; } }
 
@@ -543,7 +564,7 @@
           <div class="section-count" id="secLabel">ทั้งหมด 0 รายการ</div>
         </div>
         <select class="sort-select desktop-only" id="sortSelect" onchange="applySort()">
-          <option value="default">ราคาค่าเริ่มต้น</option>
+          <option value="default">ราคาค่าเริ่มต้น</option> 
           <option value="price-asc">ราคาต่ำ ⇀ สูง</option>
           <option value="price-desc">ราคาสูง ⇀ ต่ำ</option>
         </select>
@@ -552,7 +573,7 @@
             <line x1="7" y1="4" x2="7" y2="20"/><polyline points="3 8 7 4 11 8"/>
             <line x1="17" y1="4" x2="17" y2="20"/><polyline points="13 16 17 20 21 16"/>
           </svg>
-          <span>เรียง</span>
+          <span>ราคา</span>
           <select onchange="syncAndSort(this)" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;">
             <option value="default">ค่าเริ่มต้น</option>
             <option value="price-asc">ราคาต่ำ ⇀ สูง</option>
@@ -570,6 +591,9 @@
       </div>
 
       <div class="grid" id="grid"></div>
+      
+      <!-- Pagination Container -->
+      <div class="pagination" id="pagination"></div>
 
    
   </main>
@@ -647,6 +671,10 @@
     const HERO_IDX = [0,1,2,3,7,9,10,11,12,13];
     const typeMap = { house:'บ้าน/ตึก', landhouse:'ที่ดินเหมาะปลูกบ้าน', 'large-land':'ที่แปลงใหญ่' };
     const pinSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0114 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>`;
+
+    // ตัวแปร Pagination
+    const ITEMS_PER_PAGE = 20; // แก้ตรงนี้ถ้าในอนาคตต้องการเพิ่ม/ลดรายการต่อหน้า
+    let currentPage = 1;
 
     let curFilter='all', curSort='default', heroIdx=0, heroTimer=null;
     const HERO_IV=5000;
@@ -766,22 +794,67 @@
     function galMove(dir){ galIndex=(galIndex+dir+galImages.length)%galImages.length; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); }
     function galJump(i){ galIndex=i; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); }
 
-    /* GRID */
+    /* GRID & PAGINATION */
     const observer=new IntersectionObserver(entries=>{ entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*55); observer.unobserve(e.target); } }); },{threshold:0.08});
-    function applySort(){ curSort=document.getElementById('sortSelect').value; render(); }
+    
+    function applySort(){ curSort=document.getElementById('sortSelect').value; render(null, true); }
     function syncAndSort(el){ document.getElementById('sortSelect').value=el.value; applySort(); }
 
-    function render(f){
+    function updatePagination(current, total) {
+      const container = document.getElementById('pagination');
+      if (total <= 1) {
+        // หากมีแค่ 1 หน้า ให้แสดงปุ่มกดไม่ได้ และแสดงเป็น หน้า 1 / 1 ไว้
+        container.innerHTML = `
+          <button class="page-btn" disabled>‹ ก่อนหน้า</button>
+          <span class="page-info">หน้า 1 / 1</span>
+          <button class="page-btn" disabled>ถัดไป ›</button>
+        `;
+        return;
+      }
+      
+      container.innerHTML = `
+        <button class="page-btn" ${current === 1 ? 'disabled' : ''} onclick="changePage(${current - 1})">‹ ก่อนหน้า</button>
+        <span class="page-info">หน้า ${current} / ${total}</span>
+        <button class="page-btn" ${current === total ? 'disabled' : ''} onclick="changePage(${current + 1})">ถัดไป ›</button>
+      `;
+    }
+
+   function changePage(newPage) {
+      currentPage = newPage;
+      render(null, false);
+      // สั่งให้เลื่อนขึ้นไปที่จุดบนสุดของหน้าเว็บ (พิกัด top: 0) แบบนุ่มนวล
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function render(f, resetPage = true){
       if(f) curFilter=f;
+      if(resetPage) currentPage = 1;
+
       document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.f===curFilter));
+      
       let items=DATA.map((d,i)=>({...d,_i:i}));
       if(curFilter!=='all') items=items.filter(d=>d.type===curFilter);
+      
       document.getElementById('secLabel').textContent=`ทั้งหมด ${items.length} รายการ`;
+      
       if(curSort==='price-asc') items.sort((a,b)=>a.priceNum-b.priceNum);
       if(curSort==='price-desc') items.sort((a,b)=>b.priceNum-a.priceNum);
+
+      // คำนวณ Pagination
+      const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE) || 1;
+      if(currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+      const paginatedItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
       const grid=document.getElementById('grid');
-      if(!items.length){ grid.innerHTML='<div class="empty">ไม่พบรายการในหมวดนี้</div>'; return; }
-      grid.innerHTML=items.map(d=>`
+      if(!paginatedItems.length){ 
+        grid.innerHTML='<div class="empty">ไม่พบรายการในหมวดนี้</div>'; 
+        updatePagination(0, 0);
+        return; 
+      }
+
+      grid.innerHTML=paginatedItems.map(d=>`
         <div class="card" onclick="openDetail(${d._i})" onmouseenter="preload(${d._i})" ontouchstart="preload(${d._i})">
           <div class="card-img">
             <img src="${d.img}" alt="${d.title}" loading="lazy"/>
@@ -798,7 +871,9 @@
             <button class="card-btn" onclick="event.stopPropagation();openDetail(${d._i})">ดูรายละเอียด</button>
           </div>
         </div>`).join('');
+      
       requestAnimationFrame(()=>{ grid.querySelectorAll('.card').forEach(c=>observer.observe(c)); });
+      updatePagination(currentPage, totalPages);
     }
 
     const stBtn=document.getElementById('scrollTopBtn');
@@ -810,8 +885,8 @@
       if(isMobile){ DATA.slice(0,6).forEach(d=>{new Image().src=d.img;}); setTimeout(()=>DATA.slice(6).forEach(d=>{new Image().src=d.img;}),3000); }
       else DATA.forEach(d=>{new Image().src=d.img;});
     });
-    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>render(c.dataset.f)));
-    buildHero(); render('all');
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>render(c.dataset.f, true)));
+    buildHero(); render('all', true);
   </script>
 
 </body>
