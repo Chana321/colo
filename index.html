@@ -97,6 +97,9 @@
     .nav-toggle.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-toggle.active span:nth-child(2) { opacity: 0; }
     .nav-toggle.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-toggle.active .hamburger-icon span {
+      background-color: var(--white); /* <-- เปลี่ยนสีเป็นสีน้ำเงินตามตัวแปร */
+    }
     .mobile-exit-section { display: none; list-style: none; width: 100%; }
 
     /* ============================================================ HERO CAROUSEL */
@@ -457,7 +460,7 @@
       .nav-menu.active { transform: translateX(0); }
       .nav-menu li { width: 100%; }
       .mobile-exit-section { display: block; }
-      .btn-exit { width: 100%; height: 63px; background: var(--white); border: none; display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Prompt', sans-serif; font-size: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+      .btn-exit { width: 100%; height: 63px; background: var(--ink); border: none; display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Prompt', sans-serif; font-size: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
       .nav-menu a { display: flex; align-items: center; justify-content: center; padding: 15px 0; font-size: 15px; color: var(--silver); border-radius: 0; border-bottom: 1px solid var(--border-dark); width: 100%; }
       .nav-menu a.active { color: var(--white); background: lab(100% 0.01 -0.01 / 0.075); }
       .section-head { padding: 36px 0 22px; }
@@ -595,10 +598,7 @@
       <!-- Pagination Container -->
       <div class="pagination" id="pagination"></div>
 
-   
-  </main>
-
-     <!-- FAB -->
+    <!-- FAB -->
       <div class="fab-wrapper">
         <div class="fab-options" id="fabOptions">
           <a href="https://www.facebook.com/profile.php?id=61585932872107" target="_blank" class="fab-mini fb">
@@ -614,8 +614,12 @@
         <button class="fab-main" id="fabMain" onclick="toggleFAB()">
           <img src="img/other/call3.png" alt="Call">
         </button>
-      </div>
-    </div>
+  </div>
+</main>
+
+    
+      
+    
 
   <!-- FOOTER -->
   <footer>
@@ -655,12 +659,15 @@
       { title:'บ้านสวยสไตล์โมเดิร์น', img:'img/15.webp', map:'https://maps.app.goo.gl/sN5q7SyGFRhkKfT97', fbPost:'https://www.facebook.com/share/p/1CU9hgify5/', loc:'ต.บ่อแฮ้ว อ.เมือง ลำปาง', priceNum:1450000, price:'1,450,000', type:'house', tag:'บ้านรีโนเวท', area:'60 ตร.ว.', desc:'บ้านรีโนเวทพร้อมเข้าอยู่ เนื้อที่ 79 ตร.ว บ้านดงม่อนกระทิง มีพื้นที่ใช้สอยเหลือเฟือ สามารถต่อเติมได้เยอะ \n\n- 3 ห้องนอน 1 ห้องน้ำ 1 ห้องครัว \n- โถงในบ้าน/โถงหน้าบ้าน  \n- แอร์+เครื่องทำน้ำอุ่น \n- จอดรถยนต์ได้ถึง 4 คัน  ', gallery:['img/8/1.webp','img/8/2.webp','img/8/3.webp','img/8/5.webp','img/8/4.webp'] },
       { title:'บ้านหรูใจกลางเมือง', img:'img/16.webp', map:'https://maps.app.goo.gl/dgC7qFk8yidmzV9u9', fbPost:'https://www.facebook.com/share/p/18FGP8LBSC/', loc:'ต.พระบาท อ.เมือง ลำปาง', priceNum:6500000, price:'6,500,000', type:'house', tag:'บ้านมือสอง', area:'116 ตร.ว.', desc:'บ้าน 2 ชั้น ใจกลางเมืองทำเลดีมาก เนื้อที่ 116 ตร.ว โครงสร้างแข็งแรงวัสดุพรีเมียม ดีไซน์ทันสมัย\n\n- 4 ห้องนอน | 4 ห้องน้ำ  \n- 1 ห้องครัว | 1 ห้องทานข้าว\n- จอดรถยนต์ได้ถึง 5 คัน \n- สวนโกโก้รอบบ้าน บรรยากาศร่มรื่น', gallery:['img/9/1.webp','img/9/2.webp','img/9/3.webp','img/9/4.webp'] },
       { title:'บ้านสวยสไตล์โมเดิร์น (สร้างได้70%)', img:'img/17.webp', map:'https://maps.app.goo.gl/vnAfmHGcHY4JDSMH8', fbPost:'https://www.facebook.com/share/p/1FEu4LhLaq/', loc:'ต.ต้นธงชัย อ.เมือง ลำปาง', priceNum:1250000, price:'1,250,000', type:'house', tag:'บ้านสร้างใหม่', area:'76 ตร.ว.', desc:'บ้านสวยชั้นเดียวสไตล์โมเดิล สร้างใหม่ได้ 70% กำลังรอเจ้าของคนใหม่ อยู่ในโครงการบ้านอลิน@เจดีย์ซาว \n\n- ห่างจากวัดเจย์ซาวเพียง 250 เมตร \n- 3 ห้องนอน | 2 ห้องน้ำ \n- มีเลขที่บ้านแล้ว \n- หน้าบ้านเป็นทุ่งนา บรรยากาศธรรมชาติสุดๆ', gallery:['img/10/1.webp','img/10/2.webp','img/10/3.webp','img/10/4.webp'] },
-      { title:'บ้านกลางป่าเหมี้ยง', img:'img/18.webp', map:'https://maps.app.goo.gl/kFRnacb1xn9MsNBm8', fbPost:'https://www.facebook.com/share/p/1a8Q5NdzHq/', loc:'ต.แจ้ซ้อน อ.เมืองปาน ลำปาง', priceNum:2500000, price:'2,500,000', type:'house', tag:'บ้านมือสอง', area:'240 ตร.ว.', desc:'บ้านพักตากอากาศ 2 ชั้น กลางบ้านป่าเหมี้ยง ลายล้อมไปด้วยธรรมชาติ อากาศเย็นตลอดทั้งปี \n\n- 3 ห้องนอน | 2 ห้องน้ำ \n- 1 ครัวนอก | 1 พื้นที่เตรียมอาหาร \n- จอดรถในร่มได้ 2 คัน \n- หลังบ้านติดลำธาร น้ำใสไหลเย็นตลอดปี', gallery:['img/11/1.webp','img/11/2.webp','img/11/3.webp','img/11/4.webp'] },
       { title:'ตึก 2 คูหาแยกเฮือนสายคำ', img:'img/29.webp', map:'https://maps.app.goo.gl/og4arbmztfZJdhv89', fbPost:'https://www.facebook.com/share/p/1CJ9pzwyAY/', loc:'ต.วิเชตนคร อ.แจ้ห่ม ลำปาง', priceNum:2600000, price:'2,600,000/ห้อง', type:'house', tag:'ตึกคูหา', area:'138 ตร.ว.', desc:'ตึก 2 ชั้น 3 คูหา พื้นที่ใช้สอยเหลือเฟือทำเลทองเพื่อธุรกิจ ติดเส้นถนนฉัตรไชย  \n\n- ตึก 2 ชั้น 3 คูหาติดกัน \n- มีดาดฟ้า \n- ติดถนนหลัก คนสัญจรตลอดวัน', gallery:['img/12/1.webp','img/12/2.webp'] },
+      { title:'ตึก 4 คูหาตรงห้ามศาลากลาง', img:'img/34.webp', map:'https://maps.app.goo.gl/og4arbmztfZJdhv89', fbPost:'https://www.facebook.com/share/p/1CJ9pzwyAY/', loc:'ต.วิเชตนคร อ.แจ้ห่ม ลำปาง', priceNum:560000, price:'560,000/ห้อง', type:'house', tag:'ตึกคูหา', area:'138 ตร.ว.', desc:'ตึก 2 ชั้น 3 คูหา พื้นที่ใช้สอยเหลือเฟือทำเลทองเพื่อธุรกิจ ติดเส้นถนนฉัตรไชย  \n\n- ตึก 2 ชั้น 3 คูหาติดกัน \n- มีดาดฟ้า \n- ติดถนนหลัก คนสัญจรตลอดวัน', gallery:['img/12/1.webp','img/12/2.webp'] },
+       { title:'บ้านเดี่ยว', img:'img/33.webp', map:'https://maps.app.goo.gl/og4arbmztfZJdhv89', fbPost:'https://www.facebook.com/share/p/1CJ9pzwyAY/', loc:'ต.วิเชตนคร อ.แจ้ห่ม ลำปาง', priceNum:19000000, price:'19,000,000', type:'house', tag:'ตึกคูหา', area:'138 ตร.ว.', desc:'ตึก 2 ชั้น 3 คูหา พื้นที่ใช้สอยเหลือเฟือทำเลทองเพื่อธุรกิจ ติดเส้นถนนฉัตรไชย \n\n- มีดาดฟ้า \n- ใกล้สถานีรถไฟ,สถานีขนส่ง', gallery:['img/12/1.webp','img/12/2.webp'] },
+      { title:'บ้านกลางป่าเหมี้ยง', img:'img/18.webp', map:'https://maps.app.goo.gl/kFRnacb1xn9MsNBm8', fbPost:'https://www.facebook.com/share/p/1a8Q5NdzHq/', loc:'ต.แจ้ซ้อน อ.เมืองปาน ลำปาง', priceNum:2500000, price:'2,500,000', type:'house', tag:'บ้านมือสอง', area:'240 ตร.ว.', desc:'บ้านพักตากอากาศ 2 ชั้น กลางบ้านป่าเหมี้ยง ลายล้อมไปด้วยธรรมชาติ อากาศเย็นตลอดทั้งปี \n\n- 3 ห้องนอน | 2 ห้องน้ำ \n- 1 ครัวนอก | 1 พื้นที่เตรียมอาหาร \n- จอดรถในร่มได้ 2 คัน \n- หลังบ้านติดลำธาร น้ำใสไหลเย็นตลอดปี', gallery:['img/11/1.webp','img/11/2.webp','img/11/3.webp','img/11/4.webp'] },
       { title:'หลังเซเว่นแจ้ห่ม', img:'img/20.webp', map:'https://maps.app.goo.gl/og4arbmztfZJdhv89', fbPost:'https://www.facebook.com/share/p/1CJ9pzwyAY/', loc:'ต.วิเชตนคร อ.แจ้ห่ม ลำปาง', priceNum:1800000, price:'1,800,000', type:'house', tag:'บ้านมือสอง', area:'66 ตร.ว.', desc:'บ้าน 2 ชั้นพร้อมเข้าอยู่กลางอำเภอเมืองแจ้ห่ม มองจากชั้น 2 เห็นวิวภูเขาธรรมชาติ \n\n- 3 ห้องนอน | 2 ห้องน้ำ \n- ห่างจากเซเว่นแจ้ห่ม 250 เมตร', gallery:['img/12/1.webp','img/12/2.webp'] },
       { title:'ตึก 3 คูหาทำเลทอง', img:'img/26.webp', map:'https://maps.app.goo.gl/og4arbmztfZJdhv89', fbPost:'https://www.facebook.com/share/p/1CJ9pzwyAY/', loc:'ต.วิเชตนคร อ.แจ้ห่ม ลำปาง', priceNum:19000000, price:'19,000,000', type:'house', tag:'ตึกคูหา', area:'138 ตร.ว.', desc:'ตึก 2 ชั้น 3 คูหา พื้นที่ใช้สอยเหลือเฟือทำเลทองเพื่อธุรกิจ ติดเส้นถนนฉัตรไชย \n\n- มีดาดฟ้า \n- ใกล้สถานีรถไฟ,สถานีขนส่ง', gallery:['img/12/1.webp','img/12/2.webp'] },
       { title:'ที่นา 21 ไร่', img:'img/21.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/v/1U6gVnZTch/', loc:'อ.เมือง ลำปาง', priceNum:250000, price:'250,000/ไร่', type:'large-land', area:'21 ไร่', desc:'ที่นา 21 ไร่ มองหาที่นาทำโคกหนองนา แปลงนี้ครบ น้ำดี ดินดี บรรยากาศเยี่ยม ไม่ห่างตัวเมือง \n\n- เอกสาร นส.3ก \n- เข้าออกสะดวกมาก' },
       { title:'พระบาทซอย7', img:'img/32.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.เมือง ลำปาง', priceNum:1250000, price:'1,250,000', type:'large-land', area:'1-2-83 ไร่', desc:'ที่แปลงใหญ่ในตัวเมือง เข้า–ออกสะดวก สิ่งแวดล้อมดี' },
+      { title:'ที่นา 14 ไร่หลังวัดเจดีย์ซาว', img:'img/35.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.เมือง ลำปาง', priceNum:1250000, price:'1,250,000', type:'large-land', area:'1-2-83 ไร่', desc:'ที่แปลงใหญ่ในตัวเมือง เข้า–ออกสะดวก สิ่งแวดล้อมดี' },
       { title:'ตรงข้ามหนองกระทิง', img:'img/23.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.เมือง ลำปาง', priceNum:5000000, price:'5,000,000', type:'large-land', area:'5-2-30 ไร่', desc:'ที่แปลงใหญ่ในตัวเมืองเนื้อที่ 5 ไร่ 2 งาน 30 ตร.วา เข้า–ออกสะดวก สิ่งแวดล้อมดี \n\n- หน้ากว้าง 115 เมตร \n- ห่างจากสวนสาธารณะ หนองกระทิง 2.กม' },
       { title:'โซนพระบาท', img:'img/30.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.เมือง ลำปาง', priceNum:7928000, price:'7,928,000', type:'large-land', area:'2-1-91 ไร่', desc:'ที่แปลงใหญ่ในตัวเมือง เข้า–ออกสะดวก สิ่งแวดล้อมดี พร้อมบ้านหลายหลังและอาคารเดิม' },
       { title:'บ้านเหล่าบุญเกิด', img:'img/22.webp', map:'https://maps.app.goo.gl/qoZpMRGMmEssacUX7', fbPost:'https://www.facebook.com/share/p/1C9EVoUgHa/', loc:'อ.แจ้ห่ม ลำปาง', priceNum:1800000, price:'1,800,000', type:'large-land', area:'4-2-20 ไร่', desc:'ที่แปลงใหญ่ใกล้เมืองบ้านเหล่าบุญเกิด เนื้อที่ 4 ไร่ 2 งาน 20 ตร.ว \n\n- ห่างจากสนามบินลำปาง 3.3 กม\n- ขาย ตร.ว ละ 4900 บาท' },
